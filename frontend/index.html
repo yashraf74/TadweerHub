@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>AquaCycle — Recycle. Restore. Repeat.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -81,6 +81,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.25rem 3rem;
+      padding-top: calc(1.25rem + env(safe-area-inset-top));
       background: rgba(10, 15, 13, 0.85);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
