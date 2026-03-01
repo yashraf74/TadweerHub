@@ -1,0 +1,8 @@
+name = "aquacycle-api"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "aquacycle-db"
+database_id = "ad78e69c-c22a-4c41-83e7-b67f07e00da0"

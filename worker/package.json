@@ -1,0 +1,15 @@
+{
+  "name": "aquacycle-api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.69.0"
+  },
+  "dependencies": {
+    "git": "^0.1.5"
+  }
+}
