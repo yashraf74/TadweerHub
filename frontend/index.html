@@ -899,6 +899,7 @@
       transition: opacity 0.3s, transform 0.3s;
       pointer-events: none;
     }
+
     .scroll-top.visible {
       opacity: 1;
       transform: translateY(0);
@@ -1384,6 +1385,12 @@
 
     // Refresh every 30s
     setInterval(() => { loadStats(); loadFeed(); loadLeaderboard(); }, 30000);
+
+    const scrollBtn = document.getElementById('scrollTop');
+      window.addEventListener('scroll', () => {
+        scrollBtn.classList.toggle('visible', window.scrollY > 400);
+      });
+      scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   </script>
   <button class="scroll-top" id="scrollTop">↑</button>
 </body>
