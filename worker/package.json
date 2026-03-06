@@ -1,15 +1,18 @@
 {
-  "name": "aquacycle-api",
+  "name": "tadweerhub-api",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "wrangler": "^4.69.0"
-  },
-  "dependencies": {
-    "git": "^0.1.5"
+    "wrangler": "^3.0.0",
+    "vitest": "^1.0.0",
+    "@vitest/coverage-v8": "^1.0.0"
   }
 }

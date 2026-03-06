@@ -1,0 +1,109 @@
+name: TadweerHub CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Run API Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: worker/package-lock.json
+
+      - name: Install dependencies
+        working-directory: worker
+        run: npm install
+
+      - name: Run tests
+        working-directory: worker
+        run: npx vitest run --reporter=verbose
+
+      - name: Run tests with coverage
+        working-directory: worker
+        run: npx vitest run --coverage
+        continue-on-error: true
+
+  lint:
+    name: Lint Frontend HTML
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check frontend file exists
+        run: test -f frontend/index.html && echo "✅ index.html found" || (echo "❌ index.html missing" && exit 1)
+
+      - name: Check API URL is configured
+        run: |
+          if grep -q "YOUR_SUBDOMAIN" frontend/index.html; then
+            echo "⚠️  Warning: API URL still contains placeholder. Update const API in index.html before deploying."
+          else
+            echo "✅ API URL is configured"
+          fi
+
+      - name: Check for console.log statements left in frontend
+        run: |
+          count=$(grep -c "console\.log" frontend/index.html || true)
+          echo "Found $count console.log statement(s)"
+          if [ "$count" -gt "3" ]; then
+            echo "⚠️  Warning: $count console.log statements found in frontend. Consider removing before production."
+          fi
+
+  validate-worker:
+    name: Validate Worker Structure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check required files exist
+        run: |
+          files=(
+            "worker/src/index.js"
+            "worker/wrangler.toml"
+            "worker/package.json"
+            "frontend/index.html"
+            "README.md"
+          )
+          all_ok=true
+          for f in "${files[@]}"; do
+            if [ -f "$f" ]; then
+              echo "✅ $f"
+            else
+              echo "❌ Missing: $f"
+              all_ok=false
+            fi
+          done
+          $all_ok || exit 1
+
+      - name: Check wrangler.toml has database binding
+        run: |
+          if grep -q "d1_databases" worker/wrangler.toml; then
+            echo "✅ D1 database binding found in wrangler.toml"
+          else
+            echo "❌ No D1 database binding in wrangler.toml"
+            exit 1
+          fi
+
+      - name: Check worker exports default handler
+        run: |
+          if grep -q "export default" worker/src/index.js; then
+            echo "✅ Worker has default export"
+          else
+            echo "❌ Worker missing default export"
+            exit 1
+          fi

@@ -145,6 +145,26 @@ Your site is live at `https://tadweerhub.pages.dev` (or a custom domain if you a
 | `GET` | `/api/stats` | Global platform statistics |
 | `GET` | `/api/leaderboard` | Top 10 collectors by points |
 
+## Running Tests
+```bash
+cd worker
+npm install
+npm test
+```
+
+To run in watch mode during development:
+```bash
+npm run test:watch
+```
+```
+
+---
+
+**`.gitignore`** — yes, add coverage output so it doesn't get committed:
+```
+node_modules/
+coverage/
+
 ### Example: Register a consumer
 ```bash
 curl -X POST https://tadweerhub-api.YOUR_SUBDOMAIN.workers.dev/api/users \
