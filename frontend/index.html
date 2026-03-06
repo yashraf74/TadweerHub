@@ -1,162 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>TadweerHub — Collect. Recycle. Earn.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0a0f0d;
-      --surface: #111a14;
-      --surface2: #162019;
-      --green: #3dff7a;
-      --green-dim: #1a5c30;
-      --blue: #00d4ff;
-      --amber: #ffb830;
-      --text: #e8f5ed;
-      --muted: #6b8f76;
-      --border: #1e3326;
-      --danger: #ff4d4d;
+      --bg: #0a0f0d; --surface: #111a14; --surface2: #162019;
+      --green: #3dff7a; --green-dim: #1a5c30; --blue: #00d4ff;
+      --amber: #ffb830; --text: #e8f5ed; --muted: #6b8f76;
+      --border: #1e3326; --danger: #ff4d4d;
+      --font-body: 'DM Sans', sans-serif;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-mono: 'Space Mono', monospace;
     }
-
+    html[lang="ar"] {
+      --font-body: 'Cairo', sans-serif;
+      --font-display: 'Cairo', sans-serif;
+      --font-mono: 'Cairo', sans-serif;
+    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    /* RTL overrides */
+    html[dir="rtl"] body { letter-spacing: 0 !important; }
+    html[dir="rtl"] nav { flex-direction: row-reverse; }
+    html[dir="rtl"] .nav-links { flex-direction: row-reverse; }
+    html[dir="rtl"] .hero-cta { flex-direction: row-reverse; }
+    html[dir="rtl"] .segment-tabs { flex-direction: row-reverse; }
+    html[dir="rtl"] .step::before { left: auto; right: 0; }
+    html[dir="rtl"] .session-bar { flex-direction: row-reverse; }
+    html[dir="rtl"] .feed-item { flex-direction: row-reverse; }
+    html[dir="rtl"] .pickup-item { flex-direction: row-reverse; }
+    html[dir="rtl"] .footer-brand { flex-direction: row-reverse; }
+    html[dir="rtl"] footer { flex-direction: row-reverse; }
+    html[dir="rtl"] .leaderboard-table th,
+    html[dir="rtl"] .leaderboard-table td { text-align: right; }
+    html[dir="rtl"] .modal-close { right: auto; left: 1rem; }
+    html[dir="rtl"] .toast { right: auto; left: 2rem; }
+    html[dir="rtl"] .scroll-top { right: auto; left: 2rem; }
+    html[dir="rtl"] .how-tabs, html[dir="rtl"] .dashboard-tabs { flex-direction: row-reverse; }
+    html[dir="rtl"] .hero h1 { letter-spacing: 0; line-height: 1.1; }
+    html[dir="rtl"] .section-title { letter-spacing: 0; }
+    html[dir="rtl"] .feed-bottles span { text-align: left; }
 
     body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
+      content: ''; position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.4;
+      pointer-events: none; z-index: 9999; opacity: 0.4;
     }
-
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--green-dim); border-radius: 3px; }
 
-    /* ── Nav ── */
+    /* Nav */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
       padding: 0.85rem 2.5rem;
-      background: rgba(10, 15, 13, 0.9);
-      backdrop-filter: blur(12px);
+      background: rgba(10,15,13,0.9); backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
-      z-index: 101;
-    }
-
+    .nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; z-index: 101; }
     .nav-logo-img {
-      width: 38px;
-      height: 38px;
-      border-radius: 6px;
-      background: var(--surface);
-      border: 1px dashed var(--green-dim);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.45rem;
-      color: var(--muted);
-      text-align: center;
-      line-height: 1.3;
-      flex-shrink: 0;
+      width: 38px; height: 38px; border-radius: 6px;
+      background: var(--surface); border: 1px dashed var(--green-dim);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.45rem; color: var(--muted); text-align: center; line-height: 1.3; flex-shrink: 0;
     }
-
-    .nav-logo-text {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.7rem;
-      letter-spacing: 0.08em;
-      color: var(--green);
-    }
-
+    .nav-logo-text { font-family: var(--font-display); font-size: 1.7rem; letter-spacing: 0.08em; color: var(--green); }
     .nav-logo-text span { color: var(--blue); }
-
-    .nav-links {
-      display: flex;
-      gap: 1.75rem;
-      list-style: none;
-      align-items: center;
-    }
-
-    .nav-links a {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--muted);
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      transition: color 0.2s;
-    }
-
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; align-items: center; }
+    .nav-links a { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em; transition: color 0.2s; }
+    html[lang="ar"] .nav-links a { text-transform: none; letter-spacing: 0; font-size: 0.85rem; }
     .nav-links a:hover { color: var(--green); }
-
-    .btn-nav {
-      background: var(--green) !important;
-      color: var(--bg) !important;
-      padding: 0.5rem 1.25rem !important;
-      font-weight: 700 !important;
-      border-radius: 2px;
-    }
-
+    .btn-nav { background: var(--green) !important; color: var(--bg) !important; padding: 0.5rem 1.25rem !important; font-weight: 700 !important; border-radius: 2px; }
     .btn-nav:hover { background: #5fffaa !important; }
-
-    .btn-nav-factory {
-      background: transparent !important;
-      color: var(--amber) !important;
-      border: 1px solid var(--amber) !important;
-      padding: 0.5rem 1.25rem !important;
-      font-weight: 700 !important;
-      border-radius: 2px;
-    }
-
+    .btn-nav-factory { background: transparent !important; color: var(--amber) !important; border: 1px solid var(--amber) !important; padding: 0.5rem 1.25rem !important; font-weight: 700 !important; border-radius: 2px; }
     .btn-nav-factory:hover { background: rgba(255,184,48,0.1) !important; }
 
-    /* ── Hamburger ── */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      z-index: 101;
+    /* Language toggle */
+    .lang-toggle {
+      background: none; border: 1px solid var(--border); color: var(--muted);
+      padding: 0.35rem 0.8rem; font-family: var(--font-mono); font-size: 0.65rem;
+      cursor: pointer; border-radius: 2px; text-transform: uppercase; letter-spacing: 0.08em;
+      transition: color 0.2s, border-color 0.2s; white-space: nowrap;
     }
+    .lang-toggle:hover { color: var(--green); border-color: var(--green); }
 
-    .hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--green);
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 101; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--green); border-radius: 2px; transition: all 0.3s; }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -165,769 +103,202 @@
       nav { padding: 1rem 1.5rem; position: relative; }
       .hamburger { display: flex; }
       .nav-links {
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        background: rgba(10,15,13,0.97);
-        backdrop-filter: blur(16px);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        height: 100vh;
-        transform: translateX(100%);
+        position: fixed; top: 0; left: 0; right: 0;
+        background: rgba(10,15,13,0.97); backdrop-filter: blur(16px);
+        flex-direction: column !important; justify-content: center; align-items: center;
+        gap: 2rem; height: 100vh; transform: translateX(100%);
         transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
       }
-      .nav-links.open { transform: translateX(0); }
+      html[dir="rtl"] .nav-links { transform: translateX(-100%); }
+      .nav-links.open { transform: translateX(0) !important; }
       .nav-links a { font-size: 0.9rem; }
     }
 
-    /* ── Hero ── */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 8rem 3rem 4rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(61,255,122,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(61,255,122,0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-
-    .hero-glow {
-      position: absolute;
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(61,255,122,0.07) 0%, transparent 70%);
-      top: -150px; right: -150px;
-      pointer-events: none;
-    }
-
-    .hero-tag {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--green);
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.6s 0.1s forwards;
-    }
-
-    .hero h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3.5rem, 11vw, 9rem);
-      line-height: 0.9;
-      letter-spacing: 0.02em;
-      max-width: 900px;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.2s forwards;
-    }
-
+    /* Hero */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 8rem 3rem 4rem; position: relative; overflow: hidden; }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(61,255,122,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(61,255,122,0.03) 1px,transparent 1px); background-size: 60px 60px; }
+    .hero-glow { position: absolute; width: 700px; height: 700px; background: radial-gradient(circle,rgba(61,255,122,0.07) 0%,transparent 70%); top: -150px; right: -150px; pointer-events: none; }
+    .hero-tag { font-family: var(--font-mono); font-size: 0.7rem; color: var(--green); text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.6s 0.1s forwards; }
+    html[lang="ar"] .hero-tag { text-transform: none; letter-spacing: 0; font-size: 0.9rem; }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(3.5rem,11vw,9rem); line-height: 0.9; letter-spacing: 0.02em; max-width: 900px; opacity: 0; animation: fadeUp 0.7s 0.2s forwards; }
+    html[lang="ar"] .hero h1 { font-size: clamp(2.8rem,9vw,7rem); font-weight: 900; line-height: 1.1; }
     .hero h1 .accent { color: var(--green); }
     .hero h1 .accent2 { color: var(--blue); }
-
-    .hero-sub {
-      max-width: 520px;
-      color: var(--muted);
-      margin-top: 2rem;
-      font-size: 1.05rem;
-      font-weight: 300;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.35s forwards;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 1rem;
-      margin-top: 3rem;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.5s forwards;
-    }
-
-    .btn-primary {
-      background: var(--green);
-      color: var(--bg);
-      border: none;
-      padding: 1rem 2.5rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      border-radius: 2px;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      display: inline-block;
-    }
-
-    .btn-primary:hover {
-      background: #5fffaa;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(61,255,122,0.3);
-    }
-
-    .btn-factory {
-      background: transparent;
-      color: var(--amber);
-      border: 1px solid var(--amber);
-      padding: 1rem 2.5rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      border-radius: 2px;
-      text-decoration: none;
-      display: inline-block;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .btn-factory:hover {
-      background: rgba(255,184,48,0.1);
-      transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 1rem 2.5rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      border-radius: 2px;
-      text-decoration: none;
-      transition: border-color 0.2s, color 0.2s;
-      display: inline-block;
-    }
-
+    .hero-sub { max-width: 520px; color: var(--muted); margin-top: 2rem; font-size: 1.05rem; font-weight: 300; opacity: 0; animation: fadeUp 0.7s 0.35s forwards; }
+    .hero-cta { display: flex; gap: 1rem; margin-top: 3rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.7s 0.5s forwards; }
+    .btn-primary { background: var(--green); color: var(--bg); border: none; padding: 1rem 2.5rem; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; text-decoration: none; transition: background 0.2s,transform 0.15s,box-shadow 0.2s; display: inline-block; }
+    html[lang="ar"] .btn-primary, html[lang="ar"] .btn-factory, html[lang="ar"] .btn-secondary { text-transform: none; letter-spacing: 0; font-size: 0.95rem; }
+    .btn-primary:hover { background: #5fffaa; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(61,255,122,0.3); }
+    .btn-factory { background: transparent; color: var(--amber); border: 1px solid var(--amber); padding: 1rem 2.5rem; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; text-decoration: none; display: inline-block; transition: background 0.2s,transform 0.15s; }
+    .btn-factory:hover { background: rgba(255,184,48,0.1); transform: translateY(-2px); }
+    .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); padding: 1rem 2.5rem; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; text-decoration: none; transition: border-color 0.2s,color 0.2s; display: inline-block; }
     .btn-secondary:hover { border-color: var(--green); color: var(--green); }
-
-    /* ── Segment tabs ── */
-    .segment-tabs {
-      display: flex;
-      gap: 2rem;
-      margin-top: 4rem;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.65s forwards;
-    }
-
-    .seg-tab {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    .seg-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-    }
-
+    .segment-tabs { display: flex; gap: 2rem; margin-top: 4rem; opacity: 0; animation: fadeUp 0.7s 0.65s forwards; }
+    html[dir="rtl"] .segment-tabs { flex-direction: row-reverse; }
+    .seg-tab { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; }
+    html[lang="ar"] .seg-tab { text-transform: none; letter-spacing: 0; font-size: 0.8rem; }
+    .seg-dot { width: 8px; height: 8px; border-radius: 50%; }
     .seg-dot.consumer { background: var(--green); }
-    .seg-dot.factory { background: var(--amber); }
+    .seg-dot.factory  { background: var(--amber); }
 
-    /* ── Stats bar ── */
-    .stats-bar {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 2.5rem 3rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 2rem;
-    }
-
+    /* Stats bar */
+    .stats-bar { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2.5rem 3rem; display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 2rem; }
     .stat-item { text-align: center; }
+    .stat-value { font-family: var(--font-display); font-size: 2.8rem; color: var(--green); line-height: 1; letter-spacing: 0.05em; }
+    .stat-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 0.4rem; }
+    html[lang="ar"] .stat-label { text-transform: none; letter-spacing: 0; font-size: 0.75rem; }
 
-    .stat-value {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.8rem;
-      color: var(--green);
-      line-height: 1;
-      letter-spacing: 0.05em;
-    }
-
-    .stat-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-top: 0.4rem;
-    }
-
-    /* ── Sections ── */
+    /* Sections */
     section { padding: 6rem 3rem; }
+    .section-tag { font-family: var(--font-mono); font-size: 0.65rem; color: var(--green); text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 1rem; }
+    html[lang="ar"] .section-tag { text-transform: none; letter-spacing: 0; font-size: 0.8rem; }
+    .section-title { font-family: var(--font-display); font-size: clamp(2.5rem,6vw,5rem); line-height: 1; letter-spacing: 0.02em; margin-bottom: 1.5rem; }
+    html[lang="ar"] .section-title { font-weight: 900; letter-spacing: 0; }
 
-    .section-tag {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--green);
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      margin-bottom: 1rem;
-    }
-
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      line-height: 1;
-      letter-spacing: 0.02em;
-      margin-bottom: 1.5rem;
-    }
-
-    /* ── How it works ── */
+    /* How it works */
     #how-it-works { background: var(--surface); }
-
-    .how-tabs {
-      display: flex;
-      gap: 0;
-      margin-bottom: 3rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .how-tab {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      padding: 0.75rem 2rem;
-      cursor: pointer;
-      background: none;
-      border: none;
-      color: var(--muted);
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: color 0.2s, border-color 0.2s;
-    }
-
+    .how-tabs { display: flex; margin-bottom: 3rem; border-bottom: 1px solid var(--border); }
+    .how-tab { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.75rem 2rem; cursor: pointer; background: none; border: none; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.2s,border-color 0.2s; }
+    html[lang="ar"] .how-tab { text-transform: none; letter-spacing: 0; font-size: 0.85rem; }
     .how-tab.active-consumer { color: var(--green); border-bottom-color: var(--green); }
-    .how-tab.active-factory { color: var(--amber); border-bottom-color: var(--amber); }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2px;
-    }
-
+    .how-tab.active-factory  { color: var(--amber); border-bottom-color: var(--amber); }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 2px; }
     .steps.hidden { display: none; }
-
-    .step {
-      background: var(--bg);
-      padding: 2.5rem;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.2s;
-    }
-
+    .step { background: var(--bg); padding: 2.5rem; position: relative; overflow: hidden; transition: background 0.2s; }
     .step:hover { background: var(--surface2); }
-
-    .step::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 3px; height: 0;
-      transition: height 0.4s;
-    }
-
+    .step::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; transition: height 0.4s; }
     .consumer-steps .step::before { background: var(--green); }
-    .factory-steps .step::before { background: var(--amber); }
+    .factory-steps  .step::before { background: var(--amber); }
     .step:hover::before { height: 100%; }
-
-    .step-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 5rem;
-      color: var(--border);
-      line-height: 1;
-      margin-bottom: 1rem;
-    }
-
+    .step-num { font-family: var(--font-display); font-size: 5rem; color: var(--border); line-height: 1; margin-bottom: 1rem; }
     .step h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.75rem; }
-    .step p { color: var(--muted); font-size: 0.88rem; }
+    .step p  { color: var(--muted); font-size: 0.88rem; }
 
-    /* ── Dashboard ── */
+    /* Dashboard */
     #dashboard { background: var(--bg); }
-
-    .dashboard-tabs {
-      display: flex;
-      gap: 0;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .dash-tab {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      padding: 0.75rem 2rem;
-      cursor: pointer;
-      background: none;
-      border: none;
-      color: var(--muted);
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: color 0.2s, border-color 0.2s;
-    }
-
+    .dashboard-tabs { display: flex; margin-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .dash-tab { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.75rem 2rem; cursor: pointer; background: none; border: none; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.2s,border-color 0.2s; }
+    html[lang="ar"] .dash-tab { text-transform: none; letter-spacing: 0; font-size: 0.85rem; }
     .dash-tab.active-consumer { color: var(--green); border-bottom-color: var(--green); }
-    .dash-tab.active-factory { color: var(--amber); border-bottom-color: var(--amber); }
-
+    .dash-tab.active-factory  { color: var(--amber); border-bottom-color: var(--amber); }
     .dash-panel { display: none; }
     .dash-panel.active { display: block; }
-
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 1fr 360px;
-      gap: 2rem;
-    }
-
+    .dashboard-grid { display: grid; grid-template-columns: 1fr 360px; gap: 2rem; }
     @media (max-width: 900px) {
       .dashboard-grid { grid-template-columns: 1fr; }
       .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
       .stats-bar { padding: 2rem 1.5rem; }
     }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 2rem;
-    }
-
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 2rem; }
     .card.factory-card { border-color: rgba(255,184,48,0.2); }
+    .card-title { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 1.5rem; }
+    html[lang="ar"] .card-title { text-transform: none; letter-spacing: 0; font-size: 0.85rem; }
 
-    .card-title {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-
-    /* ── Forms ── */
+    /* Forms */
     .form-group { margin-bottom: 1.25rem; }
-
-    label {
-      display: block;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.75rem 1rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      border-radius: 2px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
+    label { display: block; font-family: var(--font-mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.5rem; }
+    html[lang="ar"] label { text-transform: none; letter-spacing: 0; font-size: 0.8rem; }
+    input, select, textarea { width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 0.75rem 1rem; font-family: var(--font-body); font-size: 0.95rem; border-radius: 2px; outline: none; transition: border-color 0.2s; }
     input:focus, select:focus, textarea:focus { border-color: var(--green); }
     .factory-card input:focus, .factory-card select:focus, .factory-card textarea:focus { border-color: var(--amber); }
-
     select option { background: var(--surface); }
-
-    .btn-submit {
-      width: 100%;
-      background: var(--green);
-      color: var(--bg);
-      border: none;
-      padding: 1rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      border-radius: 2px;
-      margin-top: 0.5rem;
-      transition: background 0.2s, transform 0.15s;
-    }
-
+    .btn-submit { width: 100%; background: var(--green); color: var(--bg); border: none; padding: 1rem; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; margin-top: 0.5rem; transition: background 0.2s,transform 0.15s; }
+    html[lang="ar"] .btn-submit, html[lang="ar"] .btn-submit-factory { text-transform: none; letter-spacing: 0; font-size: 0.95rem; }
     .btn-submit:hover { background: #5fffaa; transform: translateY(-1px); }
     .btn-submit:disabled { background: var(--green-dim); cursor: not-allowed; transform: none; }
-
-    .btn-submit-factory {
-      width: 100%;
-      background: var(--amber);
-      color: var(--bg);
-      border: none;
-      padding: 1rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      border-radius: 2px;
-      margin-top: 0.5rem;
-      transition: background 0.2s, transform 0.15s;
-    }
-
+    .btn-submit-factory { width: 100%; background: var(--amber); color: var(--bg); border: none; padding: 1rem; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; margin-top: 0.5rem; transition: background 0.2s,transform 0.15s; }
     .btn-submit-factory:hover { background: #ffd066; transform: translateY(-1px); }
     .btn-submit-factory:disabled { background: #5c4010; cursor: not-allowed; transform: none; }
 
-    /* ── Feed ── */
+    /* Feed */
     .feed { display: flex; flex-direction: column; gap: 0.75rem; }
-
-    .feed-item {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      padding: 1rem 1.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      animation: fadeUp 0.4s forwards;
-    }
-
+    .feed-item { background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; animation: fadeUp 0.4s forwards; }
     .feed-item-left { display: flex; flex-direction: column; gap: 0.2rem; }
     .feed-user { font-weight: 600; font-size: 0.9rem; }
-    .feed-meta { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
-
-    .feed-bottles { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--green); line-height: 1; white-space: nowrap; }
-    .feed-bottles span { font-family: 'Space Mono', monospace; font-size: 0.55rem; color: var(--muted); display: block; text-align: right; }
-
-    /* ── Pickup requests feed ── */
-    .pickup-item {
-      background: var(--bg);
-      border: 1px solid rgba(255,184,48,0.15);
-      border-radius: 2px;
-      padding: 1rem 1.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      animation: fadeUp 0.4s forwards;
-    }
-
-    .pickup-status {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 0.25rem 0.6rem;
-      border-radius: 100px;
-    }
-
-    .status-pending { background: rgba(255,184,48,0.1); color: var(--amber); }
+    .feed-meta { font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    html[lang="ar"] .feed-meta { text-transform: none; letter-spacing: 0; }
+    .feed-bottles { font-family: var(--font-display); font-size: 1.8rem; color: var(--green); line-height: 1; white-space: nowrap; }
+    .feed-bottles span { font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); display: block; text-align: right; }
+    .pickup-item { background: var(--bg); border: 1px solid rgba(255,184,48,0.15); border-radius: 2px; padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; animation: fadeUp 0.4s forwards; }
+    .pickup-status { font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.6rem; border-radius: 100px; }
+    .status-pending   { background: rgba(255,184,48,0.1); color: var(--amber); }
     .status-confirmed { background: rgba(61,255,122,0.1); color: var(--green); }
 
-    /* ── Leaderboard ── */
+    /* Leaderboard */
     #leaderboard { background: var(--surface); }
-
     .leaderboard-table { width: 100%; border-collapse: collapse; margin-top: 2rem; font-size: 0.9rem; }
-
-    .leaderboard-table th {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      text-align: left;
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--border);
-    }
-
+    .leaderboard-table th { font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); text-align: left; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); }
+    html[lang="ar"] .leaderboard-table th { text-transform: none; letter-spacing: 0; }
     .leaderboard-table td { padding: 1rem; border-bottom: 1px solid var(--border); }
     .leaderboard-table tr:hover td { background: rgba(61,255,122,0.03); }
+    .rank { font-family: var(--font-display); font-size: 1.5rem; color: var(--muted); }
+    .rank-1 { color: #ffd700; } .rank-2 { color: #c0c0c0; } .rank-3 { color: #cd7f32; }
+    .points-badge { background: rgba(61,255,122,0.1); color: var(--green); padding: 0.25rem 0.75rem; border-radius: 100px; font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; }
 
-    .rank { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--muted); }
-    .rank-1 { color: #ffd700; }
-    .rank-2 { color: #c0c0c0; }
-    .rank-3 { color: #cd7f32; }
-
-    .points-badge {
-      background: rgba(61,255,122,0.1);
-      color: var(--green);
-      padding: 0.25rem 0.75rem;
-      border-radius: 100px;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      font-weight: 700;
-    }
-
-    /* ── Session bar ── */
-    .session-bar {
-      background: rgba(61,255,122,0.06);
-      border: 1px solid var(--green-dim);
-      border-radius: 4px;
-      padding: 1rem 1.5rem;
-      margin-bottom: 1.5rem;
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
+    /* Session bar */
+    .session-bar { background: rgba(61,255,122,0.06); border: 1px solid var(--green-dim); border-radius: 4px; padding: 1rem 1.5rem; margin-bottom: 1.5rem; display: none; align-items: center; justify-content: space-between; gap: 1rem; }
     .session-bar.visible { display: flex; }
     .session-bar.factory-session { background: rgba(255,184,48,0.06); border-color: rgba(255,184,48,0.3); }
     .session-name { font-weight: 600; }
     .session-name.consumer-name { color: var(--green); }
-    .session-name.factory-name { color: var(--amber); }
-    .session-points { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted); }
-
-    .btn-logout {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: 0.35rem 0.75rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      cursor: pointer;
-      border-radius: 2px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      transition: color 0.2s, border-color 0.2s;
-    }
-
+    .session-name.factory-name  { color: var(--amber); }
+    .session-points { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); }
+    .btn-logout { background: none; border: 1px solid var(--border); color: var(--muted); padding: 0.35rem 0.75rem; font-family: var(--font-mono); font-size: 0.6rem; cursor: pointer; border-radius: 2px; text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.2s,border-color 0.2s; }
+    html[lang="ar"] .btn-logout { text-transform: none; letter-spacing: 0; }
     .btn-logout:hover { color: var(--danger); border-color: var(--danger); }
 
-    /* ── Modals ── */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(8px);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
-
+    /* Modals */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
     .modal-overlay.active { opacity: 1; pointer-events: all; }
-
-    .modal {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 2.5rem;
-      width: 100%;
-      max-width: 460px;
-      margin: 1rem;
-      transform: translateY(20px);
-      transition: transform 0.3s;
-      position: relative;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
+    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 2.5rem; width: 100%; max-width: 460px; margin: 1rem; transform: translateY(20px); transition: transform 0.3s; position: relative; max-height: 90vh; overflow-y: auto; }
     .modal.factory-modal { border-color: rgba(255,184,48,0.3); }
     .modal-overlay.active .modal { transform: translateY(0); }
-
-    .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 0.5rem; }
+    .modal-title { font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.5rem; }
+    html[lang="ar"] .modal-title { font-weight: 900; }
     .modal-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
-
-    .modal-close {
-      position: absolute;
-      top: 1rem; right: 1rem;
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 1.5rem;
-      cursor: pointer;
-      padding: 0.5rem;
-    }
-
-    .modal-switch {
-      margin-top: 1rem;
-      font-size: 0.8rem;
-      color: var(--muted);
-      text-align: center;
-    }
-
+    .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--muted); font-size: 1.5rem; cursor: pointer; padding: 0.5rem; }
+    .modal-switch { margin-top: 1rem; font-size: 0.8rem; color: var(--muted); text-align: center; }
     .modal-switch a { color: var(--green); text-decoration: none; }
     .modal-switch a:hover { text-decoration: underline; }
 
-    /* ── Toast ── */
-    .toast {
-      position: fixed;
-      bottom: 5rem;
-      right: 2rem;
-      background: var(--surface);
-      border: 1px solid var(--green);
-      color: var(--text);
-      padding: 1rem 1.5rem;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      z-index: 2000;
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.3s;
-      max-width: 320px;
-    }
-
+    /* Toast */
+    .toast { position: fixed; bottom: 5rem; right: 2rem; background: var(--surface); border: 1px solid var(--green); color: var(--text); padding: 1rem 1.5rem; border-radius: 4px; font-size: 0.9rem; z-index: 2000; transform: translateY(100px); opacity: 0; transition: all 0.3s; max-width: 320px; }
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast.error { border-color: var(--danger); }
 
-    /* ── Warning ── */
-    .warning-box {
-      background: rgba(255,77,77,0.08);
-      border: 1px solid rgba(255,77,77,0.3);
-      border-radius: 2px;
-      padding: 1rem 1.25rem;
-      margin-bottom: 1.5rem;
-      font-size: 0.9rem;
-      color: #ff9f9f;
-    }
-
+    /* Warning */
+    .warning-box { background: rgba(255,77,77,0.08); border: 1px solid rgba(255,77,77,0.3); border-radius: 2px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.9rem; color: #ff9f9f; }
     .warning-box a { color: var(--green); text-decoration: underline; cursor: pointer; }
 
-    /* ── Factory supply cards ── */
-    .supply-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-top: 2rem;
-    }
+    /* Supply cards */
+    .supply-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 1rem; margin-top: 2rem; }
+    .supply-card { background: var(--surface); border: 1px solid rgba(255,184,48,0.2); border-radius: 4px; padding: 1.5rem; text-align: center; }
+    .supply-val { font-family: var(--font-display); font-size: 3rem; color: var(--amber); line-height: 1; }
+    .supply-label { font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 0.5rem; }
+    html[lang="ar"] .supply-label { text-transform: none; letter-spacing: 0; font-size: 0.75rem; }
 
-    .supply-card {
-      background: var(--surface);
-      border: 1px solid rgba(255,184,48,0.2);
-      border-radius: 4px;
-      padding: 1.5rem;
-      text-align: center;
-    }
+    /* Footer */
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 2.5rem 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+    .footer-brand { display: flex; align-items: center; gap: 0.75rem; }
+    .footer-logo-img { width: 44px; height: 44px; border-radius: 8px; background: var(--bg); border: 1px dashed var(--green-dim); display: flex; align-items: center; justify-content: center; font-size: 0.4rem; color: var(--muted); text-align: center; line-height: 1.3; flex-shrink: 0; }
+    .footer-logo-text { font-family: var(--font-display); font-size: 1.5rem; color: var(--green); letter-spacing: 0.1em; }
+    footer p { font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.08em; }
+    html[lang="ar"] footer p { letter-spacing: 0; font-size: 0.75rem; }
 
-    .supply-val {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3rem;
-      color: var(--amber);
-      line-height: 1;
-    }
-
-    .supply-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-top: 0.5rem;
-    }
-
-    /* ── Footer ── */
-    footer {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 2.5rem 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-    }
-
-    .footer-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .footer-logo-img {
-      width: 44px; height: 44px;
-      border-radius: 8px;
-      background: var(--bg);
-      border: 1px dashed var(--green-dim);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.4rem;
-      color: var(--muted);
-      text-align: center;
-      line-height: 1.3;
-      flex-shrink: 0;
-    }
-
-    .footer-logo-text {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;
-      color: var(--green);
-      letter-spacing: 0.1em;
-    }
-
-    footer p { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--muted); letter-spacing: 0.08em; }
-
-    /* ── Scroll top ── */
-    .scroll-top {
-      position: fixed;
-      bottom: 2rem; right: 2rem;
-      width: 44px; height: 44px;
-      background: var(--green);
-      color: var(--bg);
-      border: none;
-      border-radius: 2px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      z-index: 200;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.3s, transform 0.3s;
-      pointer-events: none;
-    }
-
+    /* Scroll top */
+    .scroll-top { position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px; background: var(--green); color: var(--bg); border: none; border-radius: 2px; font-size: 1.2rem; cursor: pointer; z-index: 200; opacity: 0; transform: translateY(20px); transition: opacity 0.3s,transform 0.3s; pointer-events: none; }
     .scroll-top.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
 
-    /* ── Misc ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
     .hidden { display: none !important; }
-
-    .loading-text {
-      color: var(--muted);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      text-align: center;
-      padding: 2rem;
-    }
-
+    .loading-text { color: var(--muted); font-family: var(--font-mono); font-size: 0.75rem; text-align: center; padding: 2rem; }
     .empty-state { text-align: center; padding: 3rem 1rem; color: var(--muted); }
     .empty-state p { font-size: 0.9rem; margin-top: 0.5rem; }
-
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 1.5rem 0;
-    }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
   </style>
 </head>
 <body>
 
-<!-- ── Navigation ── -->
 <nav>
   <a href="#" class="nav-brand">
     <div class="nav-logo-img">LOGO<br>HERE</div>
@@ -937,850 +308,660 @@
     <span></span><span></span><span></span>
   </button>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
-    <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
-    <li><a href="#leaderboard" class="nav-link">Leaderboard</a></li>
-    <li><a href="#" class="btn-nav-factory nav-link" id="openFactoryRegister">Factory Portal</a></li>
-    <li><a href="#" class="btn-nav nav-link" id="openRegister">Join Now</a></li>
+    <li><a href="#how-it-works" class="nav-link" data-i18n="nav.how">How It Works</a></li>
+    <li><a href="#dashboard"    class="nav-link" data-i18n="nav.dashboard">Dashboard</a></li>
+    <li><a href="#leaderboard"  class="nav-link" data-i18n="nav.leaderboard">Leaderboard</a></li>
+    <li><a href="#" class="btn-nav-factory nav-link" id="openFactoryRegister" data-i18n="nav.factory">Factory Portal</a></li>
+    <li><a href="#" class="btn-nav nav-link" id="openRegister" data-i18n="nav.join">Join Now</a></li>
+    <li><button class="lang-toggle" id="langToggle">عربي</button></li>
   </ul>
 </nav>
 
-<!-- ── Hero ── -->
 <section class="hero" id="home">
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
-  <p class="hero-tag">// Egypt's Plastic & Can Recycling Network</p>
+  <p class="hero-tag" data-i18n="hero.tag">// Egypt's Plastic &amp; Can Recycling Network</p>
   <h1>
-    COLLECT.<br>
-    <span class="accent">RECYCLE.</span><br>
-    <span class="accent2">EARN.</span>
+    <span data-i18n="hero.l1">COLLECT.</span><br>
+    <span class="accent"  data-i18n="hero.l2">RECYCLE.</span><br>
+    <span class="accent2" data-i18n="hero.l3">EARN.</span>
   </h1>
-  <p class="hero-sub">
-    TadweerHub bridges the gap between consumers with plastic waste and recycling factories that need clean, sorted materials. Drop off, request pickup, earn cash rewards.
-  </p>
+  <p class="hero-sub" data-i18n="hero.sub">TadweerHub bridges the gap between consumers with plastic waste and recycling factories that need clean, sorted materials.</p>
   <div class="hero-cta">
-    <a href="#dashboard" class="btn-primary">I Have Waste to Recycle</a>
-    <a href="#dashboard" class="btn-factory" id="factoryHeroBtn">I'm a Recycling Factory</a>
-    <a href="#how-it-works" class="btn-secondary">How It Works</a>
+    <a href="#dashboard" class="btn-primary" data-i18n="hero.cta1">I Have Waste to Recycle</a>
+    <a href="#dashboard" class="btn-factory" id="factoryHeroBtn" data-i18n="hero.cta2">I'm a Recycling Factory</a>
+    <a href="#how-it-works" class="btn-secondary" data-i18n="hero.cta3">How It Works</a>
   </div>
   <div class="segment-tabs">
-    <div class="seg-tab"><div class="seg-dot consumer"></div><span style="color:var(--muted)">Consumers — earn cash from plastic</span></div>
-    <div class="seg-tab"><div class="seg-dot factory"></div><span style="color:var(--muted)">Factories — get clean sorted supply</span></div>
+    <div class="seg-tab"><div class="seg-dot consumer"></div><span style="color:var(--muted)" data-i18n="hero.seg1">Consumers — earn cash from plastic</span></div>
+    <div class="seg-tab"><div class="seg-dot factory"></div><span  style="color:var(--muted)" data-i18n="hero.seg2">Factories — get clean sorted supply</span></div>
   </div>
 </section>
 
-<!-- ── Live Stats Bar ── -->
 <div class="stats-bar">
-  <div class="stat-item">
-    <div class="stat-value" id="statBottles">—</div>
-    <div class="stat-label">Bottles Collected</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-value" id="statUsers">—</div>
-    <div class="stat-label">Active Members</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-value" id="statPickups">—</div>
-    <div class="stat-label">Pickup Requests</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-value" id="statCO2">—</div>
-    <div class="stat-label">KG CO₂ Saved</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-value" id="statWater">—</div>
-    <div class="stat-label">Litres Water Saved</div>
-  </div>
+  <div class="stat-item"><div class="stat-value" id="statBottles">—</div><div class="stat-label" data-i18n="stats.bottles">Bottles Collected</div></div>
+  <div class="stat-item"><div class="stat-value" id="statUsers">—</div><div class="stat-label" data-i18n="stats.members">Active Members</div></div>
+  <div class="stat-item"><div class="stat-value" id="statPickups">—</div><div class="stat-label" data-i18n="stats.pickups">Pickup Requests</div></div>
+  <div class="stat-item"><div class="stat-value" id="statCO2">—</div><div class="stat-label" data-i18n="stats.co2">KG CO₂ Saved</div></div>
+  <div class="stat-item"><div class="stat-value" id="statWater">—</div><div class="stat-label" data-i18n="stats.water">Litres Water Saved</div></div>
 </div>
 
-<!-- ── How It Works ── -->
 <section id="how-it-works">
-  <p class="section-tag">// Process</p>
-  <h2 class="section-title">HOW IT WORKS</h2>
-
+  <p class="section-tag" data-i18n="how.tag">// Process</p>
+  <h2 class="section-title" data-i18n="how.title">HOW IT WORKS</h2>
   <div class="how-tabs">
-    <button class="how-tab active-consumer" id="howTabConsumer" onclick="switchHowTab('consumer')">For Consumers</button>
-    <button class="how-tab" id="howTabFactory" onclick="switchHowTab('factory')">For Factories</button>
+    <button class="how-tab active-consumer" id="howTabConsumer" onclick="switchHowTab('consumer')" data-i18n="how.tabC">For Consumers</button>
+    <button class="how-tab" id="howTabFactory" onclick="switchHowTab('factory')" data-i18n="how.tabF">For Factories</button>
   </div>
-
   <div class="steps consumer-steps" id="consumerSteps">
-    <div class="step">
-      <div class="step-num">01</div>
-      <h3>Collect Your Plastic</h3>
-      <p>Gather your empty plastic bottles and aluminum cans. Every item you collect earns you cash rewards.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <h3>Choose Drop-off or Pickup</h3>
-      <p>Either visit a TadweerHub collection point near you, or request a free home pickup directly from the platform.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <h3>Log Your Drop-off</h3>
-      <p>Create your account and log how many items you've dropped off. Every bottle counts toward your balance.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">04</div>
-      <h3>Earn Cash & Track Impact</h3>
-      <p>Earn points redeemable for cash payments. Track your environmental impact: CO₂ saved, water conserved, and more.</p>
-    </div>
+    <div class="step"><div class="step-num">01</div><h3 data-i18n="how.c1t">Collect Your Plastic</h3><p data-i18n="how.c1b">Gather your empty plastic bottles and aluminum cans. Every item you collect earns you cash rewards.</p></div>
+    <div class="step"><div class="step-num">02</div><h3 data-i18n="how.c2t">Choose Drop-off or Pickup</h3><p data-i18n="how.c2b">Either visit a TadweerHub collection point near you, or request a free home pickup directly from the platform.</p></div>
+    <div class="step"><div class="step-num">03</div><h3 data-i18n="how.c3t">Log Your Drop-off</h3><p data-i18n="how.c3b">Create your account and log how many items you've dropped off. Every bottle counts toward your balance.</p></div>
+    <div class="step"><div class="step-num">04</div><h3 data-i18n="how.c4t">Earn Cash &amp; Track Impact</h3><p data-i18n="how.c4b">Earn points redeemable for cash payments. Track your environmental impact: CO₂ saved, water conserved, and more.</p></div>
   </div>
-
   <div class="steps factory-steps hidden" id="factorySteps">
-    <div class="step">
-      <div class="step-num">01</div>
-      <h3>Register Your Factory</h3>
-      <p>Create a factory account and specify what materials you need — plastic types, aluminum cans — and your required quantities.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <h3>View Available Supply</h3>
-      <p>See real-time inventory of collected, sorted plastic and cans available in your region, ready for delivery.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <h3>Place a Supply Order</h3>
-      <p>Request the quantity you need. TadweerHub handles collection, sorting, and delivery directly to your factory site.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">04</div>
-      <h3>Receive Sorted Materials</h3>
-      <p>Get clean, quality-tested, well-sorted plastic and aluminum delivered on schedule at competitive prices.</p>
-    </div>
+    <div class="step"><div class="step-num">01</div><h3 data-i18n="how.f1t">Register Your Factory</h3><p data-i18n="how.f1b">Create a factory account and specify what materials you need and your required quantities.</p></div>
+    <div class="step"><div class="step-num">02</div><h3 data-i18n="how.f2t">View Available Supply</h3><p data-i18n="how.f2b">See real-time inventory of collected, sorted plastic and cans available in your region.</p></div>
+    <div class="step"><div class="step-num">03</div><h3 data-i18n="how.f3t">Place a Supply Order</h3><p data-i18n="how.f3b">Request the quantity you need. TadweerHub handles collection, sorting, and delivery directly to your factory site.</p></div>
+    <div class="step"><div class="step-num">04</div><h3 data-i18n="how.f4t">Receive Sorted Materials</h3><p data-i18n="how.f4b">Get clean, quality-tested, well-sorted plastic and aluminum delivered on schedule at competitive prices.</p></div>
   </div>
 </section>
 
-<!-- ── Dashboard ── -->
 <section id="dashboard">
-  <p class="section-tag">// Dashboard</p>
-  <h2 class="section-title">YOUR PORTAL</h2>
-
+  <p class="section-tag" data-i18n="dash.tag">// Dashboard</p>
+  <h2 class="section-title" data-i18n="dash.title">YOUR PORTAL</h2>
   <div class="dashboard-tabs">
-    <button class="dash-tab active-consumer" id="dashTabConsumer" onclick="switchDashTab('consumer')">Consumer Dashboard</button>
-    <button class="dash-tab" id="dashTabFactory" onclick="switchDashTab('factory')">Factory Dashboard</button>
+    <button class="dash-tab active-consumer" id="dashTabConsumer" onclick="switchDashTab('consumer')" data-i18n="dash.tabC">Consumer Dashboard</button>
+    <button class="dash-tab" id="dashTabFactory" onclick="switchDashTab('factory')" data-i18n="dash.tabF">Factory Dashboard</button>
   </div>
 
-  <!-- ── Consumer Panel ── -->
   <div class="dash-panel active" id="panelConsumer">
     <div id="consumerSessionBar" class="session-bar">
       <div>
         <div class="session-name consumer-name" id="sessionName">—</div>
         <div class="session-points" id="sessionPoints">0 points</div>
       </div>
-      <button class="btn-logout" id="logoutBtn">Sign Out</button>
+      <button class="btn-logout" id="logoutBtn" data-i18n="common.signOut">Sign Out</button>
     </div>
-
     <div class="dashboard-grid">
       <div class="card">
-        <div class="card-title">// Log a Drop-off</div>
+        <div class="card-title" data-i18n="dropoff.title">// Log a Drop-off</div>
         <div id="noUserWarning" class="warning-box">
-          You need to <a id="joinPromptLink">create an account</a> before logging a drop-off.
+          <span data-i18n="dropoff.warn1">You need to</span> <a id="joinPromptLink" data-i18n="dropoff.warnLink">create an account</a> <span data-i18n="dropoff.warn2">before logging a drop-off.</span>
         </div>
         <form id="dropoffForm">
+          <div class="form-group"><label data-i18n="dropoff.bottles">Number of Bottles / Cans</label><input type="number" id="bottleCount" min="1" max="10000" placeholder="e.g. 25" required /></div>
           <div class="form-group">
-            <label>Number of Bottles / Cans</label>
-            <input type="number" id="bottleCount" min="1" max="10000" placeholder="e.g. 25" required />
-          </div>
-          <div class="form-group">
-            <label>Material Type</label>
+            <label data-i18n="dropoff.material">Material Type</label>
             <select id="materialType" required>
-              <option value="">Select type...</option>
-              <option value="plastic">Plastic Bottles</option>
-              <option value="cans">Aluminum Cans</option>
-              <option value="mixed">Mixed (Plastic + Cans)</option>
+              <option value="" data-i18n="c.selType">Select type...</option>
+              <option value="plastic" data-i18n="c.plastic">Plastic Bottles</option>
+              <option value="cans"    data-i18n="c.cans">Aluminum Cans</option>
+              <option value="mixed"   data-i18n="c.mixed">Mixed (Plastic + Cans)</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Drop-off Location</label>
+            <label data-i18n="dropoff.location">Drop-off Location</label>
             <select id="locationSelect" required>
-              <option value="">Select a location...</option>
-              <option>Faculty of Engineering — Main Gate</option>
-              <option>Faculty of Science — Library Entrance</option>
-              <option>Student Union Building</option>
-              <option>Sports Complex</option>
-              <option>Administration Block</option>
-              <option>Campus Cafeteria</option>
-              <option>Dormitory Block A</option>
-              <option>Dormitory Block B</option>
-              <option>Community Centre — City</option>
-              <option>Other</option>
+              <option value="" data-i18n="c.selLoc">Select a location...</option>
+              <option data-i18n="loc.eng">Faculty of Engineering — Main Gate</option>
+              <option data-i18n="loc.sci">Faculty of Science — Library Entrance</option>
+              <option data-i18n="loc.union">Student Union Building</option>
+              <option data-i18n="loc.sports">Sports Complex</option>
+              <option data-i18n="loc.admin">Administration Block</option>
+              <option data-i18n="loc.cafe">Campus Cafeteria</option>
+              <option data-i18n="loc.dormA">Dormitory Block A</option>
+              <option data-i18n="loc.dormB">Dormitory Block B</option>
+              <option data-i18n="loc.community">Community Centre — City</option>
+              <option data-i18n="c.other">Other</option>
             </select>
           </div>
-          <div class="form-group">
-            <label>Notes (optional)</label>
-            <textarea id="dropoffNotes" rows="2" placeholder="Anything to add..."></textarea>
-          </div>
-          <button type="submit" class="btn-submit" id="submitDropoff" disabled>Log Drop-off</button>
+          <div class="form-group"><label data-i18n="dropoff.notes">Notes (optional)</label><textarea id="dropoffNotes" rows="2"></textarea></div>
+          <button type="submit" class="btn-submit" id="submitDropoff" disabled data-i18n="dropoff.submit">Log Drop-off</button>
         </form>
-
         <hr class="divider" />
-
-        <div class="card-title">// Request Home Pickup</div>
+        <div class="card-title" data-i18n="pickup.title">// Request Home Pickup</div>
         <div id="noUserPickup" class="warning-box">
-          <a id="joinPromptPickup">Sign in</a> to request a home pickup.
+          <a id="joinPromptPickup" data-i18n="common.signIn">Sign in</a> <span data-i18n="pickup.warn">to request a home pickup.</span>
         </div>
         <form id="pickupForm">
+          <div class="form-group"><label data-i18n="pickup.address">Your Address</label><input type="text" id="pickupAddress" /></div>
+          <div class="form-group"><label data-i18n="pickup.qty">Estimated Quantity</label><input type="number" id="pickupQty" min="1" /></div>
+          <div class="form-group"><label data-i18n="pickup.date">Preferred Date</label><input type="date" id="pickupDate" /></div>
           <div class="form-group">
-            <label>Your Address</label>
-            <input type="text" id="pickupAddress" placeholder="Street, district, city" />
-          </div>
-          <div class="form-group">
-            <label>Estimated Quantity</label>
-            <input type="number" id="pickupQty" min="1" placeholder="Approx. number of items" />
-          </div>
-          <div class="form-group">
-            <label>Preferred Date</label>
-            <input type="date" id="pickupDate" />
-          </div>
-          <div class="form-group">
-            <label>Material Type</label>
+            <label data-i18n="dropoff.material">Material Type</label>
             <select id="pickupMaterial">
-              <option value="plastic">Plastic Bottles</option>
-              <option value="cans">Aluminum Cans</option>
-              <option value="mixed">Mixed</option>
+              <option value="plastic" data-i18n="c.plastic">Plastic Bottles</option>
+              <option value="cans"    data-i18n="c.cans">Aluminum Cans</option>
+              <option value="mixed"   data-i18n="c.mixed">Mixed</option>
             </select>
           </div>
-          <button type="submit" class="btn-submit" id="submitPickup" disabled>Request Pickup</button>
+          <button type="submit" class="btn-submit" id="submitPickup" disabled data-i18n="pickup.submit">Request Pickup</button>
         </form>
       </div>
-
       <div class="card">
-        <div class="card-title">// Live Activity Feed</div>
-        <div class="feed" id="feed">
-          <div class="loading-text">Loading activity...</div>
-        </div>
+        <div class="card-title" data-i18n="feed.title">// Live Activity Feed</div>
+        <div class="feed" id="feed"><div class="loading-text" data-i18n="c.loading">Loading...</div></div>
       </div>
     </div>
   </div>
 
-  <!-- ── Factory Panel ── -->
   <div class="dash-panel" id="panelFactory">
     <div id="factorySessionBar" class="session-bar factory-session">
       <div>
         <div class="session-name factory-name" id="factorySessionName">—</div>
-        <div class="session-points" id="factorySessionSub">Factory Account</div>
+        <div class="session-points" id="factorySessionSub" data-i18n="fac.account">Factory Account</div>
       </div>
-      <button class="btn-logout" id="factoryLogoutBtn">Sign Out</button>
+      <button class="btn-logout" id="factoryLogoutBtn" data-i18n="common.signOut">Sign Out</button>
     </div>
-
     <div id="noFactoryWarning" class="warning-box">
-      <a id="joinFactoryPrompt">Register your factory</a> to access the supply portal.
+      <a id="joinFactoryPrompt" data-i18n="fac.regPrompt">Register your factory</a> <span data-i18n="fac.regPrompt2">to access the supply portal.</span>
     </div>
-
-    <!-- Supply overview -->
     <div class="supply-grid">
-      <div class="supply-card">
-        <div class="supply-val" id="supplyBottles">—</div>
-        <div class="supply-label">Plastic Bottles Available</div>
-      </div>
-      <div class="supply-card">
-        <div class="supply-val" id="supplyPickups">—</div>
-        <div class="supply-label">Pending Pickups</div>
-      </div>
-      <div class="supply-card">
-        <div class="supply-val" id="supplyMembers">—</div>
-        <div class="supply-label">Active Collectors</div>
-      </div>
+      <div class="supply-card"><div class="supply-val" id="supplyBottles">—</div><div class="supply-label" data-i18n="fac.sb">Plastic Bottles Available</div></div>
+      <div class="supply-card"><div class="supply-val" id="supplyPickups">—</div><div class="supply-label" data-i18n="fac.sp">Pending Pickups</div></div>
+      <div class="supply-card"><div class="supply-val" id="supplyMembers">—</div><div class="supply-label" data-i18n="fac.sm">Active Collectors</div></div>
     </div>
-
     <div class="dashboard-grid" style="margin-top:2rem;">
       <div class="card factory-card">
-        <div class="card-title">// Request Supply Delivery</div>
+        <div class="card-title" data-i18n="order.title">// Request Supply Delivery</div>
         <form id="supplyOrderForm">
           <div class="form-group">
-            <label>Material Needed</label>
+            <label data-i18n="order.material">Material Needed</label>
             <select id="supplyMaterial" required>
-              <option value="">Select material...</option>
-              <option value="plastic_flakes">Plastic Flakes (sorted)</option>
-              <option value="plastic_pellets">Plastic Pellets</option>
-              <option value="aluminum_cans">Aluminum Cans</option>
-              <option value="mixed_plastic">Mixed Plastic</option>
+              <option value="" data-i18n="c.selMat">Select material...</option>
+              <option value="plastic_flakes"  data-i18n="order.flakes">Plastic Flakes (sorted)</option>
+              <option value="plastic_pellets" data-i18n="order.pellets">Plastic Pellets</option>
+              <option value="aluminum_cans"   data-i18n="c.cans">Aluminum Cans</option>
+              <option value="mixed_plastic"   data-i18n="order.mixedP">Mixed Plastic</option>
             </select>
           </div>
-          <div class="form-group">
-            <label>Quantity (KG)</label>
-            <input type="number" id="supplyQty" min="50" placeholder="Minimum 50 kg" required />
-          </div>
-          <div class="form-group">
-            <label>Delivery Address</label>
-            <input type="text" id="supplyAddress" placeholder="Factory address" required />
-          </div>
-          <div class="form-group">
-            <label>Required By (Date)</label>
-            <input type="date" id="supplyDate" />
-          </div>
-          <div class="form-group">
-            <label>Notes</label>
-            <textarea id="supplyNotes" rows="2" placeholder="Quality requirements, special instructions..."></textarea>
-          </div>
-          <button type="submit" class="btn-submit-factory" id="submitSupplyOrder" disabled>Submit Supply Order</button>
+          <div class="form-group"><label data-i18n="order.qty">Quantity (KG)</label><input type="number" id="supplyQty" min="50" required /></div>
+          <div class="form-group"><label data-i18n="order.address">Delivery Address</label><input type="text" id="supplyAddress" required /></div>
+          <div class="form-group"><label data-i18n="order.date">Required By (Date)</label><input type="date" id="supplyDate" /></div>
+          <div class="form-group"><label data-i18n="dropoff.notes">Notes</label><textarea id="supplyNotes" rows="2"></textarea></div>
+          <button type="submit" class="btn-submit-factory" id="submitSupplyOrder" disabled data-i18n="order.submit">Submit Supply Order</button>
         </form>
       </div>
-
       <div class="card factory-card">
-        <div class="card-title">// Recent Pickup Requests</div>
-        <div class="feed" id="pickupFeed">
-          <div class="loading-text">Loading pickups...</div>
-        </div>
+        <div class="card-title" data-i18n="fac.pfTitle">// Recent Pickup Requests</div>
+        <div class="feed" id="pickupFeed"><div class="loading-text" data-i18n="c.loading">Loading...</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Leaderboard ── -->
 <section id="leaderboard">
-  <p class="section-tag">// Top Collectors</p>
-  <h2 class="section-title">LEADERBOARD</h2>
+  <p class="section-tag" data-i18n="lb.tag">// Top Collectors</p>
+  <h2 class="section-title" data-i18n="lb.title">LEADERBOARD</h2>
   <table class="leaderboard-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Member</th>
-        <th>Drop-offs</th>
-        <th>Items Collected</th>
-        <th>Points</th>
-      </tr>
-    </thead>
-    <tbody id="leaderboardBody">
-      <tr><td colspan="5" class="loading-text">Loading...</td></tr>
-    </tbody>
+    <thead><tr>
+      <th>#</th>
+      <th data-i18n="lb.member">Member</th>
+      <th data-i18n="lb.dropoffs">Drop-offs</th>
+      <th data-i18n="lb.items">Items Collected</th>
+      <th data-i18n="lb.points">Points</th>
+    </tr></thead>
+    <tbody id="leaderboardBody"><tr><td colspan="5" class="loading-text" data-i18n="c.loading">Loading...</td></tr></tbody>
   </table>
 </section>
 
-<!-- ── Footer ── -->
 <footer>
   <div class="footer-brand">
     <div class="footer-logo-img">LOGO<br>HERE</div>
     <span class="footer-logo-text">TadweerHub</span>
   </div>
-  <p>© 2025 TadweerHub. Bridging waste and recycling across Egypt.</p>
-  <p style="color:var(--green-dim)">Built for Egypt's Vision 2030 🌿</p>
+  <p data-i18n="footer.copy">© 2025 TadweerHub. Bridging waste and recycling across Egypt.</p>
+  <p style="color:var(--green-dim)" data-i18n="footer.vision">Built for Egypt's Vision 2030 🌿</p>
 </footer>
 
-<!-- ── Consumer Register Modal ── -->
+<!-- Consumer Modal -->
 <div class="modal-overlay" id="registerModal">
   <div class="modal">
     <button class="modal-close" id="closeModal">×</button>
-    <div class="modal-title">JOIN TADWEERHUB</div>
-    <p class="modal-sub">Create your consumer account to log drop-offs, request pickups, and earn rewards.</p>
+    <div class="modal-title" data-i18n="reg.title">JOIN TADWEERHUB</div>
+    <p class="modal-sub" data-i18n="reg.sub">Create your consumer account to log drop-offs, request pickups, and earn rewards.</p>
     <form id="registerForm">
-      <div class="form-group">
-        <label>Full Name</label>
-        <input type="text" id="regName" placeholder="Your name" required />
-      </div>
-      <div class="form-group">
-        <label>Email Address</label>
-        <input type="email" id="regEmail" placeholder="you@example.com" required />
-      </div>
-      <div class="form-group">
-        <label>Phone Number</label>
-        <input type="tel" id="regPhone" placeholder="+20 1xx xxx xxxx" />
-      </div>
-      <button type="submit" class="btn-submit" id="registerBtn">Create Account</button>
+      <div class="form-group"><label data-i18n="reg.name">Full Name</label><input type="text" id="regName" required /></div>
+      <div class="form-group"><label data-i18n="reg.email">Email Address</label><input type="email" id="regEmail" placeholder="you@example.com" required /></div>
+      <div class="form-group"><label data-i18n="reg.phone">Phone Number</label><input type="tel" id="regPhone" placeholder="+20 1xx xxx xxxx" /></div>
+      <button type="submit" class="btn-submit" id="registerBtn" data-i18n="reg.submit">Create Account</button>
     </form>
-    <p class="modal-switch">Already joined? <a href="#" id="loginLink">Sign in with email</a></p>
-    <div id="loginSection" class="hidden" style="margin-top:1.5rem; border-top:1px solid var(--border); padding-top:1.5rem;">
-      <div class="form-group">
-        <label>Your Email</label>
-        <input type="email" id="loginEmail" placeholder="you@example.com" />
-      </div>
-      <button class="btn-submit" id="loginBtn" style="background:transparent;border:1px solid var(--green);color:var(--green);">Sign In</button>
+    <p class="modal-switch"><span data-i18n="reg.already">Already joined?</span> <a href="#" id="loginLink" data-i18n="reg.signInLink">Sign in with email</a></p>
+    <div id="loginSection" class="hidden" style="margin-top:1.5rem;border-top:1px solid var(--border);padding-top:1.5rem;">
+      <div class="form-group"><label data-i18n="reg.email">Your Email</label><input type="email" id="loginEmail" placeholder="you@example.com" /></div>
+      <button class="btn-submit" id="loginBtn" style="background:transparent;border:1px solid var(--green);color:var(--green);" data-i18n="common.signIn">Sign In</button>
     </div>
   </div>
 </div>
 
-<!-- ── Factory Register Modal ── -->
+<!-- Factory Modal -->
 <div class="modal-overlay" id="factoryModal">
   <div class="modal factory-modal">
     <button class="modal-close" id="closeFactoryModal">×</button>
-    <div class="modal-title" style="color:var(--amber)">FACTORY PORTAL</div>
-    <p class="modal-sub">Register your recycling factory to access sorted supply, place orders, and manage deliveries.</p>
+    <div class="modal-title" style="color:var(--amber)" data-i18n="freg.title">FACTORY PORTAL</div>
+    <p class="modal-sub" data-i18n="freg.sub">Register your recycling factory to access sorted supply, place orders, and manage deliveries.</p>
     <form id="factoryRegisterForm">
+      <div class="form-group"><label data-i18n="freg.name">Factory / Company Name</label><input type="text" id="factoryName" required /></div>
+      <div class="form-group"><label data-i18n="freg.contact">Contact Person</label><input type="text" id="factoryContact" required /></div>
+      <div class="form-group"><label data-i18n="freg.email">Business Email</label><input type="email" id="factoryEmail" placeholder="factory@company.com" required /></div>
+      <div class="form-group"><label data-i18n="reg.phone">Phone</label><input type="tel" id="factoryPhone" placeholder="+20 2 xxxx xxxx" /></div>
       <div class="form-group">
-        <label>Factory / Company Name</label>
-        <input type="text" id="factoryName" placeholder="e.g. Cairo Recycling Co." required />
-      </div>
-      <div class="form-group">
-        <label>Contact Person</label>
-        <input type="text" id="factoryContact" placeholder="Manager's name" required />
-      </div>
-      <div class="form-group">
-        <label>Business Email</label>
-        <input type="email" id="factoryEmail" placeholder="factory@company.com" required />
-      </div>
-      <div class="form-group">
-        <label>Phone</label>
-        <input type="tel" id="factoryPhone" placeholder="+20 2 xxxx xxxx" />
-      </div>
-      <div class="form-group">
-        <label>Factory Location / Governorate</label>
+        <label data-i18n="freg.gov">Factory Location / Governorate</label>
         <select id="factoryGov" required>
-          <option value="">Select governorate...</option>
-          <option>Cairo</option>
-          <option>Giza</option>
-          <option>Alexandria</option>
-          <option>Qalyubia</option>
-          <option>Sharqia</option>
-          <option>Dakahlia</option>
-          <option>Beheira</option>
-          <option>Other</option>
+          <option value="" data-i18n="freg.selGov">Select governorate...</option>
+          <option data-i18n="gov.cairo">Cairo</option><option data-i18n="gov.giza">Giza</option>
+          <option data-i18n="gov.alex">Alexandria</option><option data-i18n="gov.qaly">Qalyubia</option>
+          <option data-i18n="gov.sharq">Sharqia</option><option data-i18n="gov.dak">Dakahlia</option>
+          <option data-i18n="gov.beh">Beheira</option><option data-i18n="c.other">Other</option>
         </select>
       </div>
       <div class="form-group">
-        <label>Primary Material Needed</label>
+        <label data-i18n="freg.matPref">Primary Material Needed</label>
         <select id="factoryMaterialPref">
-          <option value="plastic">Plastic Bottles</option>
-          <option value="cans">Aluminum Cans</option>
-          <option value="both">Both</option>
+          <option value="plastic" data-i18n="c.plastic">Plastic Bottles</option>
+          <option value="cans"    data-i18n="c.cans">Aluminum Cans</option>
+          <option value="both"    data-i18n="c.both">Both</option>
         </select>
       </div>
-      <button type="submit" class="btn-submit-factory" id="factoryRegisterBtn">Register Factory</button>
+      <button type="submit" class="btn-submit-factory" id="factoryRegisterBtn" data-i18n="freg.submit">Register Factory</button>
     </form>
-    <p class="modal-switch">Already registered? <a href="#" id="factoryLoginLink">Sign in</a></p>
+    <p class="modal-switch"><span data-i18n="freg.already">Already registered?</span> <a href="#" id="factoryLoginLink" data-i18n="common.signIn">Sign in</a></p>
     <div id="factoryLoginSection" class="hidden" style="margin-top:1.5rem;border-top:1px solid rgba(255,184,48,0.2);padding-top:1.5rem;">
-      <div class="form-group">
-        <label>Factory Email</label>
-        <input type="email" id="factoryLoginEmail" placeholder="factory@company.com" />
-      </div>
-      <button class="btn-submit-factory" id="factoryLoginBtn" style="background:transparent;border:1px solid var(--amber);color:var(--amber);">Sign In</button>
+      <div class="form-group"><label data-i18n="freg.email">Factory Email</label><input type="email" id="factoryLoginEmail" placeholder="factory@company.com" /></div>
+      <button class="btn-submit-factory" id="factoryLoginBtn" style="background:transparent;border:1px solid var(--amber);color:var(--amber);" data-i18n="common.signIn">Sign In</button>
     </div>
   </div>
 </div>
 
-<!-- ── Toast ── -->
 <div class="toast" id="toast"></div>
-
 <button class="scroll-top" id="scrollTop">↑</button>
 
 <script>
-  // ── Config ──────────────────────────────────────────────────
-  const API = 'https://tadweerhub-api.y-ashraf74.workers.dev';
-
-  // ── State ───────────────────────────────────────────────────
-  let currentUser    = JSON.parse(localStorage.getItem('tadweerhub_user') || 'null');
-  let currentFactory = JSON.parse(localStorage.getItem('tadweerhub_factory') || 'null');
-
-  // ── Toast ───────────────────────────────────────────────────
-  function showToast(msg, type = 'success') {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = 'toast show' + (type === 'error' ? ' error' : '');
-    setTimeout(() => t.className = 'toast', 3500);
+// ── Translations ──────────────────────────────────────────────────────────────
+const T = {
+  en: {
+    'nav.how':'How It Works','nav.dashboard':'Dashboard','nav.leaderboard':'Leaderboard',
+    'nav.factory':'Factory Portal','nav.join':'Join Now',
+    'hero.tag':"// Egypt's Plastic & Can Recycling Network",
+    'hero.l1':'COLLECT.','hero.l2':'RECYCLE.','hero.l3':'EARN.',
+    'hero.sub':'TadweerHub bridges the gap between consumers with plastic waste and recycling factories that need clean, sorted materials. Drop off, request pickup, earn cash rewards.',
+    'hero.cta1':'I Have Waste to Recycle','hero.cta2':"I'm a Recycling Factory",'hero.cta3':'How It Works',
+    'hero.seg1':'Consumers — earn cash from plastic','hero.seg2':'Factories — get clean sorted supply',
+    'stats.bottles':'Bottles Collected','stats.members':'Active Members','stats.pickups':'Pickup Requests',
+    'stats.co2':'KG CO₂ Saved','stats.water':'Litres Water Saved',
+    'how.tag':'// Process','how.title':'HOW IT WORKS','how.tabC':'For Consumers','how.tabF':'For Factories',
+    'how.c1t':'Collect Your Plastic','how.c1b':'Gather your empty plastic bottles and aluminum cans. Every item you collect earns you cash rewards.',
+    'how.c2t':'Choose Drop-off or Pickup','how.c2b':'Either visit a TadweerHub collection point near you, or request a free home pickup directly from the platform.',
+    'how.c3t':'Log Your Drop-off','how.c3b':"Create your account and log how many items you've dropped off. Every bottle counts toward your balance.",
+    'how.c4t':'Earn Cash & Track Impact','how.c4b':'Earn points redeemable for cash payments. Track your environmental impact: CO₂ saved, water conserved, and more.',
+    'how.f1t':'Register Your Factory','how.f1b':'Create a factory account and specify what materials you need and your required quantities.',
+    'how.f2t':'View Available Supply','how.f2b':'See real-time inventory of collected, sorted plastic and cans available in your region.',
+    'how.f3t':'Place a Supply Order','how.f3b':'Request the quantity you need. TadweerHub handles collection, sorting, and delivery directly to your factory site.',
+    'how.f4t':'Receive Sorted Materials','how.f4b':'Get clean, quality-tested, well-sorted plastic and aluminum delivered on schedule at competitive prices.',
+    'dash.tag':'// Dashboard','dash.title':'YOUR PORTAL','dash.tabC':'Consumer Dashboard','dash.tabF':'Factory Dashboard',
+    'dropoff.title':'// Log a Drop-off','dropoff.warn1':'You need to','dropoff.warnLink':'create an account','dropoff.warn2':'before logging a drop-off.',
+    'dropoff.bottles':'Number of Bottles / Cans','dropoff.material':'Material Type','dropoff.location':'Drop-off Location',
+    'dropoff.notes':'Notes (optional)','dropoff.submit':'Log Drop-off',
+    'pickup.title':'// Request Home Pickup','pickup.warn':'to request a home pickup.',
+    'pickup.address':'Your Address','pickup.qty':'Estimated Quantity','pickup.date':'Preferred Date','pickup.submit':'Request Pickup',
+    'feed.title':'// Live Activity Feed',
+    'fac.account':'Factory Account','fac.regPrompt':'Register your factory','fac.regPrompt2':'to access the supply portal.',
+    'fac.sb':'Plastic Bottles Available','fac.sp':'Pending Pickups','fac.sm':'Active Collectors','fac.pfTitle':'// Recent Pickup Requests',
+    'order.title':'// Request Supply Delivery','order.material':'Material Needed','order.flakes':'Plastic Flakes (sorted)',
+    'order.pellets':'Plastic Pellets','order.mixedP':'Mixed Plastic','order.qty':'Quantity (KG)',
+    'order.address':'Delivery Address','order.date':'Required By (Date)','order.submit':'Submit Supply Order',
+    'lb.tag':'// Top Collectors','lb.title':'LEADERBOARD','lb.member':'Member','lb.dropoffs':'Drop-offs','lb.items':'Items Collected','lb.points':'Points',
+    'footer.copy':'© 2025 TadweerHub. Bridging waste and recycling across Egypt.','footer.vision':"Built for Egypt's Vision 2030 🌿",
+    'reg.title':'JOIN TADWEERHUB','reg.sub':'Create your consumer account to log drop-offs, request pickups, and earn rewards.',
+    'reg.name':'Full Name','reg.email':'Email Address','reg.phone':'Phone Number','reg.submit':'Create Account',
+    'reg.already':'Already joined?','reg.signInLink':'Sign in with email',
+    'freg.title':'FACTORY PORTAL','freg.sub':'Register your recycling factory to access sorted supply, place orders, and manage deliveries.',
+    'freg.name':'Factory / Company Name','freg.contact':'Contact Person','freg.email':'Business Email',
+    'freg.gov':'Factory Location / Governorate','freg.selGov':'Select governorate...','freg.matPref':'Primary Material Needed',
+    'freg.submit':'Register Factory','freg.already':'Already registered?',
+    'common.signIn':'Sign In','common.signOut':'Sign Out',
+    'c.loading':'Loading...','c.selType':'Select type...','c.selLoc':'Select a location...','c.selMat':'Select material...',
+    'c.plastic':'Plastic Bottles','c.cans':'Aluminum Cans','c.mixed':'Mixed (Plastic + Cans)','c.both':'Both','c.other':'Other',
+    'loc.eng':'Faculty of Engineering — Main Gate','loc.sci':'Faculty of Science — Library Entrance',
+    'loc.union':'Student Union Building','loc.sports':'Sports Complex','loc.admin':'Administration Block',
+    'loc.cafe':'Campus Cafeteria','loc.dormA':'Dormitory Block A','loc.dormB':'Dormitory Block B','loc.community':'Community Centre — City',
+    'gov.cairo':'Cairo','gov.giza':'Giza','gov.alex':'Alexandria','gov.qaly':'Qalyubia','gov.sharq':'Sharqia','gov.dak':'Dakahlia','gov.beh':'Beheira',
+    'pts':'points',
+    'toast.dropoff':'Drop-off logged! ♻️','toast.pickup':"Pickup requested! We'll confirm shortly. 🚛",
+    'toast.order':'Supply order submitted! Our team will be in touch. 🏭','toast.signedOut':'Signed out.',
+    'toast.signInFirst':'Please sign in first','toast.enterEmail':'Enter your email',
+    'toast.notFound':'Email not found. Please register.','toast.enterFacEmail':'Enter your factory email',
+  },
+  ar: {
+    'nav.how':'كيف يعمل','nav.dashboard':'لوحة التحكم','nav.leaderboard':'المتصدرون',
+    'nav.factory':'بوابة المصانع','nav.join':'انضم الآن',
+    'hero.tag':'// شبكة إعادة تدوير البلاستيك والعلب في مصر',
+    'hero.l1':'اجمع.','hero.l2':'أعد التدوير.','hero.l3':'اكسب.',
+    'hero.sub':'تدوير هاب يربط بين المستهلكين الذين لديهم نفايات بلاستيكية ومصانع إعادة التدوير التي تحتاج إلى مواد نظيفة ومصنفة. سلّم أو اطلب توصيلاً من المنزل واكسب مكافآت نقدية.',
+    'hero.cta1':'لدي نفايات للتدوير','hero.cta2':'أنا مصنع إعادة تدوير','hero.cta3':'كيف يعمل',
+    'hero.seg1':'المستهلكون — اكسب نقوداً من البلاستيك','hero.seg2':'المصانع — احصل على مواد خام نظيفة',
+    'stats.bottles':'زجاجات تم جمعها','stats.members':'أعضاء نشطون','stats.pickups':'طلبات استلام',
+    'stats.co2':'كجم ثاني أكسيد كربون موفر','stats.water':'لتر ماء موفر',
+    'how.tag':'// العملية','how.title':'كيف يعمل','how.tabC':'للمستهلكين','how.tabF':'للمصانع',
+    'how.c1t':'اجمع بلاستيكك','how.c1b':'اجمع زجاجاتك الفارغة وعلب الألومنيوم. كل قطعة تجمعها تمنحك مكافأة نقدية.',
+    'how.c2t':'اختر التسليم أو الاستلام','how.c2b':'زر أقرب نقطة تجميع تدوير هاب، أو اطلب استلاماً مجانياً من منزلك مباشرةً.',
+    'how.c3t':'سجّل عملية التسليم','how.c3b':'أنشئ حسابك وسجّل عدد القطع التي سلّمتها. كل زجاجة تُحسب في رصيدك.',
+    'how.c4t':'اكسب نقوداً وتتبع أثرك','how.c4b':'اكسب نقاطاً قابلة للصرف. تتبع أثرك البيئي: ثاني أكسيد الكربون الموفر والماء وغير ذلك.',
+    'how.f1t':'سجّل مصنعك','how.f1b':'أنشئ حساباً للمصنع وحدد المواد التي تحتاجها والكميات المطلوبة.',
+    'how.f2t':'اعرض المخزون المتاح','how.f2b':'اطلع على المخزون اللحظي من البلاستيك والعلب المجمعة والمصنفة المتاحة في منطقتك.',
+    'how.f3t':'قدّم طلب توريد','how.f3b':'اطلب الكمية التي تحتاجها. تدوير هاب يتولى الجمع والتصنيف والتوصيل لموقع مصنعك.',
+    'how.f4t':'استلم المواد المصنّفة','how.f4b':'احصل على بلاستيك وألومنيوم نظيف ومُختبر الجودة بأسعار تنافسية وفي المواعيد المحددة.',
+    'dash.tag':'// لوحة التحكم','dash.title':'بوابتك','dash.tabC':'لوحة المستهلك','dash.tabF':'لوحة المصنع',
+    'dropoff.title':'// سجّل عملية تسليم','dropoff.warn1':'يجب عليك','dropoff.warnLink':'إنشاء حساب','dropoff.warn2':'قبل تسجيل عملية التسليم.',
+    'dropoff.bottles':'عدد الزجاجات / العلب','dropoff.material':'نوع المادة','dropoff.location':'موقع التسليم',
+    'dropoff.notes':'ملاحظات (اختياري)','dropoff.submit':'سجّل التسليم',
+    'pickup.title':'// اطلب استلاماً من المنزل','pickup.warn':'لطلب استلام من المنزل.',
+    'pickup.address':'عنوانك','pickup.qty':'الكمية التقريبية','pickup.date':'التاريخ المفضل','pickup.submit':'اطلب الاستلام',
+    'feed.title':'// النشاط المباشر',
+    'fac.account':'حساب المصنع','fac.regPrompt':'سجّل مصنعك','fac.regPrompt2':'للوصول إلى بوابة التوريد.',
+    'fac.sb':'زجاجات بلاستيكية متاحة','fac.sp':'طلبات استلام معلقة','fac.sm':'جامعون نشطون','fac.pfTitle':'// طلبات الاستلام الأخيرة',
+    'order.title':'// اطلب توصيل مواد','order.material':'المادة المطلوبة','order.flakes':'رقائق بلاستيك (مصنفة)',
+    'order.pellets':'حبيبات بلاستيك','order.mixedP':'بلاستيك مختلط','order.qty':'الكمية (كجم)',
+    'order.address':'عنوان التوصيل','order.date':'التاريخ المطلوب','order.submit':'أرسل طلب التوريد',
+    'lb.tag':'// أعلى المتصدرين','lb.title':'قائمة المتصدرين','lb.member':'العضو','lb.dropoffs':'عمليات التسليم','lb.items':'القطع المجمعة','lb.points':'النقاط',
+    'footer.copy':'© 2025 تدوير هاب. نربط النفايات بإعادة التدوير في مصر.','footer.vision':'مبني لدعم رؤية مصر 2030 🌿',
+    'reg.title':'انضم إلى تدوير هاب','reg.sub':'أنشئ حسابك كمستهلك لتسجيل عمليات التسليم وطلب الاستلام وكسب المكافآت.',
+    'reg.name':'الاسم الكامل','reg.email':'البريد الإلكتروني','reg.phone':'رقم الهاتف','reg.submit':'إنشاء حساب',
+    'reg.already':'لديك حساب بالفعل؟','reg.signInLink':'سجّل الدخول بالبريد الإلكتروني',
+    'freg.title':'بوابة المصانع','freg.sub':'سجّل مصنعك للوصول إلى مواد البلاستيك المصنفة وتقديم الطلبات وإدارة التوصيل.',
+    'freg.name':'اسم المصنع / الشركة','freg.contact':'جهة الاتصال','freg.email':'البريد الإلكتروني للأعمال',
+    'freg.gov':'موقع المصنع / المحافظة','freg.selGov':'اختر المحافظة...','freg.matPref':'المادة الرئيسية المطلوبة',
+    'freg.submit':'تسجيل المصنع','freg.already':'مسجّل بالفعل؟',
+    'common.signIn':'تسجيل الدخول','common.signOut':'تسجيل الخروج',
+    'c.loading':'جاري التحميل...','c.selType':'اختر النوع...','c.selLoc':'اختر الموقع...','c.selMat':'اختر المادة...',
+    'c.plastic':'زجاجات بلاستيك','c.cans':'علب ألومنيوم','c.mixed':'مختلط (بلاستيك + علب)','c.both':'كلاهما','c.other':'أخرى',
+    'loc.eng':'كلية الهندسة — البوابة الرئيسية','loc.sci':'كلية العلوم — مدخل المكتبة',
+    'loc.union':'مبنى الاتحاد الطلابي','loc.sports':'المجمع الرياضي','loc.admin':'المبنى الإداري',
+    'loc.cafe':'كافيتيريا الحرم الجامعي','loc.dormA':'المبنى السكني أ','loc.dormB':'المبنى السكني ب','loc.community':'المركز المجتمعي — المدينة',
+    'gov.cairo':'القاهرة','gov.giza':'الجيزة','gov.alex':'الإسكندرية','gov.qaly':'القليوبية','gov.sharq':'الشرقية','gov.dak':'الدقهلية','gov.beh':'البحيرة',
+    'pts':'نقطة',
+    'toast.dropoff':'تم تسجيل التسليم! ♻️','toast.pickup':'تم طلب الاستلام! سنتواصل معك قريباً. 🚛',
+    'toast.order':'تم إرسال طلب التوريد! سيتواصل معك فريقنا. 🏭','toast.signedOut':'تم تسجيل الخروج.',
+    'toast.signInFirst':'يرجى تسجيل الدخول أولاً','toast.enterEmail':'أدخل بريدك الإلكتروني',
+    'toast.notFound':'البريد الإلكتروني غير موجود. يرجى التسجيل.','toast.enterFacEmail':'أدخل البريد الإلكتروني للمصنع',
   }
+};
 
-  // ── API helper ───────────────────────────────────────────────
-  async function api(path, options = {}) {
-    const res = await fetch(API + path, {
-      headers: { 'Content-Type': 'application/json' },
-      ...options,
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Request failed');
-    return data;
+let lang = localStorage.getItem('tadweerhub_lang') || 'en';
+
+function t(k) { return T[lang][k] || T.en[k] || k; }
+
+function applyLang() {
+  const html = document.documentElement;
+  html.lang = lang;
+  html.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = t(el.getAttribute('data-i18n'));
+    if (v) el.textContent = v;
+  });
+  document.getElementById('langToggle').textContent = lang === 'en' ? 'عربي' : 'English';
+  document.title = lang === 'ar' ? 'تدوير هاب — اجمع. أعد التدوير. اكسب.' : 'TadweerHub — Collect. Recycle. Earn.';
+  loadFeed(); loadPickupFeed(); loadLeaderboard();
+  updateConsumerUI(); updateFactoryUI();
+}
+
+document.getElementById('langToggle').addEventListener('click', () => {
+  lang = lang === 'en' ? 'ar' : 'en';
+  localStorage.setItem('tadweerhub_lang', lang);
+  applyLang();
+});
+
+// ── Config ────────────────────────────────────────────────────────────────────
+const API = 'https://tadweerhub-api.y-ashraf74.workers.dev';
+let currentUser    = JSON.parse(localStorage.getItem('tadweerhub_user')    || 'null');
+let currentFactory = JSON.parse(localStorage.getItem('tadweerhub_factory') || 'null');
+
+function showToast(msg, type='success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (type==='error' ? ' error' : '');
+  setTimeout(() => el.className = 'toast', 3500);
+}
+
+async function api(path, opts={}) {
+  const res  = await fetch(API + path, { headers: {'Content-Type':'application/json'}, ...opts });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Request failed');
+  return data;
+}
+
+function switchHowTab(tab) {
+  const cS=document.getElementById('consumerSteps'), fS=document.getElementById('factorySteps');
+  const cT=document.getElementById('howTabConsumer'), fT=document.getElementById('howTabFactory');
+  if (tab==='consumer') { cS.classList.remove('hidden'); fS.classList.add('hidden'); cT.className='how-tab active-consumer'; fT.className='how-tab'; }
+  else { fS.classList.remove('hidden'); cS.classList.add('hidden'); fT.className='how-tab active-factory'; cT.className='how-tab'; }
+  // re-apply i18n on tab buttons
+  cT.textContent = t('how.tabC'); fT.textContent = t('how.tabF');
+}
+
+function switchDashTab(tab) {
+  const pC=document.getElementById('panelConsumer'), pF=document.getElementById('panelFactory');
+  const dC=document.getElementById('dashTabConsumer'), dF=document.getElementById('dashTabFactory');
+  if (tab==='consumer') { pC.classList.add('active'); pF.classList.remove('active'); dC.className='dash-tab active-consumer'; dF.className='dash-tab'; }
+  else { pF.classList.add('active'); pC.classList.remove('active'); dF.className='dash-tab active-factory'; dC.className='dash-tab'; loadSupplyStats(); loadPickupFeed(); }
+  dC.textContent = t('dash.tabC'); dF.textContent = t('dash.tabF');
+}
+
+function updateConsumerUI() {
+  const bar=document.getElementById('consumerSessionBar'), warn=document.getElementById('noUserWarning'),
+        wp=document.getElementById('noUserPickup'), sd=document.getElementById('submitDropoff'), sp=document.getElementById('submitPickup');
+  if (currentUser) {
+    bar.classList.add('visible');
+    document.getElementById('sessionName').textContent   = currentUser.name;
+    document.getElementById('sessionPoints').textContent = `${currentUser.points||0} ${t('pts')}`;
+    warn.style.display='none'; wp.style.display='none'; sd.disabled=false; sp.disabled=false;
+  } else {
+    bar.classList.remove('visible'); warn.style.display='block'; wp.style.display='block'; sd.disabled=true; sp.disabled=true;
   }
+}
 
-  // ── Tab switchers ────────────────────────────────────────────
-  function switchHowTab(tab) {
-    const cSteps = document.getElementById('consumerSteps');
-    const fSteps = document.getElementById('factorySteps');
-    const cTab   = document.getElementById('howTabConsumer');
-    const fTab   = document.getElementById('howTabFactory');
-    if (tab === 'consumer') {
-      cSteps.classList.remove('hidden'); fSteps.classList.add('hidden');
-      cTab.className = 'how-tab active-consumer'; fTab.className = 'how-tab';
-    } else {
-      fSteps.classList.remove('hidden'); cSteps.classList.add('hidden');
-      fTab.className = 'how-tab active-factory'; cTab.className = 'how-tab';
-    }
+function updateFactoryUI() {
+  const bar=document.getElementById('factorySessionBar'), warn=document.getElementById('noFactoryWarning'), so=document.getElementById('submitSupplyOrder');
+  if (currentFactory) { bar.classList.add('visible'); document.getElementById('factorySessionName').textContent=currentFactory.name; warn.style.display='none'; so.disabled=false; }
+  else { bar.classList.remove('visible'); warn.style.display='block'; so.disabled=true; }
+}
+
+async function loadStats() {
+  try {
+    const s = await api('/api/stats');
+    document.getElementById('statBottles').textContent = Number(s.total_bottles).toLocaleString();
+    document.getElementById('statUsers').textContent   = Number(s.total_users).toLocaleString();
+    document.getElementById('statPickups').textContent = Number(s.total_pickups||0).toLocaleString();
+    document.getElementById('statCO2').textContent     = Number(s.co2_saved_kg).toFixed(1);
+    document.getElementById('statWater').textContent   = Number(s.water_saved_liters).toFixed(0);
+  } catch(e) { console.error('Stats:',e); }
+}
+
+async function loadSupplyStats() {
+  try {
+    const s = await api('/api/stats');
+    document.getElementById('supplyBottles').textContent = Number(s.total_bottles).toLocaleString();
+    document.getElementById('supplyPickups').textContent = Number(s.total_pickups||0).toLocaleString();
+    document.getElementById('supplyMembers').textContent = Number(s.total_users).toLocaleString();
+  } catch(e) {}
+}
+
+function timeAgo(d) {
+  const m = Math.floor((Date.now()-new Date(d))/60000);
+  if (lang==='ar') {
+    if (m<1) return 'الآن';
+    if (m<60) return `منذ ${m} دقيقة`;
+    const h=Math.floor(m/60); if (h<24) return `منذ ${h} ساعة`;
+    return `منذ ${Math.floor(h/24)} يوم`;
   }
+  if (m<1) return 'just now';
+  if (m<60) return `${m}m ago`;
+  const h=Math.floor(m/60); if (h<24) return `${h}h ago`;
+  return `${Math.floor(h/24)}d ago`;
+}
 
-  function switchDashTab(tab) {
-    const pC = document.getElementById('panelConsumer');
-    const pF = document.getElementById('panelFactory');
-    const dC = document.getElementById('dashTabConsumer');
-    const dF = document.getElementById('dashTabFactory');
-    if (tab === 'consumer') {
-      pC.classList.add('active'); pF.classList.remove('active');
-      dC.className = 'dash-tab active-consumer'; dF.className = 'dash-tab';
-    } else {
-      pF.classList.add('active'); pC.classList.remove('active');
-      dF.className = 'dash-tab active-factory'; dC.className = 'dash-tab';
-      loadSupplyStats(); loadPickupFeed();
-    }
-  }
+function matLabel(type) {
+  return {plastic:t('c.plastic'),cans:t('c.cans'),mixed:t('c.mixed')}[type]||type;
+}
 
-  // ── Session UI ───────────────────────────────────────────────
-  function updateConsumerUI() {
-    const bar     = document.getElementById('consumerSessionBar');
-    const warning = document.getElementById('noUserWarning');
-    const wPickup = document.getElementById('noUserPickup');
-    const submitD = document.getElementById('submitDropoff');
-    const submitP = document.getElementById('submitPickup');
-    if (currentUser) {
-      bar.classList.add('visible');
-      document.getElementById('sessionName').textContent   = currentUser.name;
-      document.getElementById('sessionPoints').textContent = `${currentUser.points || 0} points`;
-      warning.style.display = 'none';
-      wPickup.style.display = 'none';
-      submitD.disabled = false;
-      submitP.disabled = false;
-    } else {
-      bar.classList.remove('visible');
-      warning.style.display = 'block';
-      wPickup.style.display = 'block';
-      submitD.disabled = true;
-      submitP.disabled = true;
-    }
-  }
+async function loadFeed() {
+  const feed=document.getElementById('feed');
+  try {
+    const items=await api('/api/dropoffs');
+    if (!items.length) { feed.innerHTML=`<div class="empty-state"><div style="font-size:2rem">♻️</div><p>${lang==='ar'?'لا يوجد تسليمات بعد. كن الأول!':'No drop-offs yet. Be the first!'}</p></div>`; return; }
+    feed.innerHTML=items.slice(0,8).map(i=>`
+      <div class="feed-item">
+        <div class="feed-item-left">
+          <div class="feed-user">${esc(i.user_name)}</div>
+          <div class="feed-meta">${esc(i.location)} · ${timeAgo(i.created_at)}</div>
+        </div>
+        <div class="feed-bottles">${i.bottles}<span>${matLabel(i.material_type)}</span></div>
+      </div>`).join('');
+  } catch(e) { feed.innerHTML=`<div class="loading-text">${lang==='ar'?'تعذر تحميل النشاط.':'Could not load feed.'}</div>`; }
+}
 
-  function updateFactoryUI() {
-    const bar     = document.getElementById('factorySessionBar');
-    const warning = document.getElementById('noFactoryWarning');
-    const submitO = document.getElementById('submitSupplyOrder');
-    if (currentFactory) {
-      bar.classList.add('visible');
-      document.getElementById('factorySessionName').textContent = currentFactory.name;
-      warning.style.display = 'none';
-      submitO.disabled = false;
-    } else {
-      bar.classList.remove('visible');
-      warning.style.display = 'block';
-      submitO.disabled = true;
-    }
-  }
+async function loadPickupFeed() {
+  const feed=document.getElementById('pickupFeed');
+  try {
+    const items=await api('/api/pickups');
+    if (!items.length) { feed.innerHTML=`<div class="empty-state"><div style="font-size:2rem">🚛</div><p>${lang==='ar'?'لا يوجد طلبات استلام بعد.':'No pickup requests yet.'}</p></div>`; return; }
+    const sl=s=>({pending:lang==='ar'?'معلق':'pending',confirmed:lang==='ar'?'مؤكد':'confirmed',completed:lang==='ar'?'مكتمل':'completed',cancelled:lang==='ar'?'ملغي':'cancelled'})[s]||s;
+    feed.innerHTML=items.slice(0,8).map(i=>`
+      <div class="pickup-item">
+        <div class="feed-item-left">
+          <div class="feed-user">${esc(i.user_name)}</div>
+          <div class="feed-meta">${esc(i.address)} · ${timeAgo(i.created_at)}</div>
+          <div class="feed-meta">${i.quantity} ${lang==='ar'?'قطعة':'items'} · ${matLabel(i.material_type)}</div>
+        </div>
+        <span class="pickup-status status-${i.status||'pending'}">${sl(i.status||'pending')}</span>
+      </div>`).join('');
+  } catch(e) { feed.innerHTML=`<div class="loading-text">${lang==='ar'?'تعذر تحميل الطلبات.':'Could not load pickups.'}</div>`; }
+}
 
-  // ── Load Stats ───────────────────────────────────────────────
-  async function loadStats() {
-    try {
-      const s = await api('/api/stats');
-      document.getElementById('statBottles').textContent  = Number(s.total_bottles).toLocaleString();
-      document.getElementById('statUsers').textContent    = Number(s.total_users).toLocaleString();
-      document.getElementById('statPickups').textContent  = Number(s.total_pickups || 0).toLocaleString();
-      document.getElementById('statCO2').textContent      = Number(s.co2_saved_kg).toFixed(1);
-      document.getElementById('statWater').textContent    = Number(s.water_saved_liters).toFixed(0);
-    } catch(e) { console.error('Stats:', e); }
-  }
+async function loadLeaderboard() {
+  const tb=document.getElementById('leaderboardBody');
+  try {
+    const rows=await api('/api/leaderboard');
+    if (!rows.length) { tb.innerHTML=`<tr><td colspan="5" class="loading-text">${lang==='ar'?'لا توجد بيانات بعد.':'No data yet.'}</td></tr>`; return; }
+    tb.innerHTML=rows.map((r,i)=>`
+      <tr>
+        <td><span class="rank rank-${i+1}">${i+1}</span></td>
+        <td>${esc(r.name)}</td><td>${r.dropoff_count}</td>
+        <td>${Number(r.total_bottles).toLocaleString()}</td>
+        <td><span class="points-badge">${r.points} ${t('pts')}</span></td>
+      </tr>`).join('');
+  } catch(e) { tb.innerHTML=`<tr><td colspan="5" class="loading-text">${lang==='ar'?'تعذر التحميل.':'Could not load leaderboard.'}</td></tr>`; }
+}
 
-  async function loadSupplyStats() {
-    try {
-      const s = await api('/api/stats');
-      document.getElementById('supplyBottles').textContent = Number(s.total_bottles).toLocaleString();
-      document.getElementById('supplyPickups').textContent = Number(s.total_pickups || 0).toLocaleString();
-      document.getElementById('supplyMembers').textContent = Number(s.total_users).toLocaleString();
-    } catch(e) {}
-  }
+// ── Forms ─────────────────────────────────────────────────────────────────────
+document.getElementById('registerForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn=document.getElementById('registerBtn');
+  btn.disabled=true; btn.textContent=lang==='ar'?'جاري الإنشاء...':'Creating...';
+  try {
+    const user=await api('/api/users',{method:'POST',body:JSON.stringify({name:document.getElementById('regName').value.trim(),email:document.getElementById('regEmail').value.trim(),phone:document.getElementById('regPhone').value.trim()})});
+    currentUser=user; localStorage.setItem('tadweerhub_user',JSON.stringify(user));
+    closeModal('registerModal'); updateConsumerUI();
+    showToast(lang==='ar'?`أهلاً بك، ${user.name}! 🎉`:`Welcome, ${user.name}! 🎉`);
+    loadLeaderboard();
+  } catch(err){showToast(err.message,'error');}
+  finally{btn.disabled=false;btn.textContent=t('reg.submit');}
+});
 
-  // ── Load Feed ────────────────────────────────────────────────
-  async function loadFeed() {
-    const feed = document.getElementById('feed');
-    try {
-      const items = await api('/api/dropoffs');
-      if (!items.length) {
-        feed.innerHTML = `<div class="empty-state"><div style="font-size:2rem">♻️</div><p>No drop-offs yet. Be the first!</p></div>`;
-        return;
-      }
-      feed.innerHTML = items.slice(0, 8).map(item => `
-        <div class="feed-item">
-          <div class="feed-item-left">
-            <div class="feed-user">${escHtml(item.user_name)}</div>
-            <div class="feed-meta">${escHtml(item.location)} · ${timeAgo(item.created_at)}</div>
-          </div>
-          <div class="feed-bottles">${item.bottles}<span>${item.material_type || 'items'}</span></div>
-        </div>`).join('');
-    } catch(e) {
-      feed.innerHTML = `<div class="loading-text">Could not load feed.</div>`;
-    }
-  }
+document.getElementById('loginLink').addEventListener('click',e=>{e.preventDefault();document.getElementById('loginSection').classList.toggle('hidden');});
+document.getElementById('loginBtn').addEventListener('click',async()=>{
+  const email=document.getElementById('loginEmail').value.trim();
+  if(!email)return showToast(t('toast.enterEmail'),'error');
+  try{const users=await api('/api/users');const user=users.find(u=>u.email.toLowerCase()===email.toLowerCase());if(!user)return showToast(t('toast.notFound'),'error');currentUser=user;localStorage.setItem('tadweerhub_user',JSON.stringify(user));closeModal('registerModal');updateConsumerUI();showToast(lang==='ar'?`أهلاً بعودتك، ${user.name}!`:`Welcome back, ${user.name}!`);}catch(err){showToast(err.message,'error');}
+});
+document.getElementById('logoutBtn').addEventListener('click',()=>{currentUser=null;localStorage.removeItem('tadweerhub_user');updateConsumerUI();showToast(t('toast.signedOut'));});
 
-  async function loadPickupFeed() {
-    const feed = document.getElementById('pickupFeed');
-    try {
-      const items = await api('/api/pickups');
-      if (!items.length) {
-        feed.innerHTML = `<div class="empty-state"><div style="font-size:2rem">🚛</div><p>No pickup requests yet.</p></div>`;
-        return;
-      }
-      feed.innerHTML = items.slice(0, 8).map(item => `
-        <div class="pickup-item">
-          <div class="feed-item-left">
-            <div class="feed-user">${escHtml(item.user_name)}</div>
-            <div class="feed-meta">${escHtml(item.address)} · ${timeAgo(item.created_at)}</div>
-            <div class="feed-meta">${item.quantity} items · ${item.material_type}</div>
-          </div>
-          <span class="pickup-status status-${item.status || 'pending'}">${item.status || 'pending'}</span>
-        </div>`).join('');
-    } catch(e) {
-      feed.innerHTML = `<div class="loading-text">Could not load pickups.</div>`;
-    }
-  }
+document.getElementById('factoryRegisterForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const btn=document.getElementById('factoryRegisterBtn');
+  btn.disabled=true; btn.textContent=lang==='ar'?'جاري التسجيل...':'Registering...';
+  try{
+    const f=await api('/api/factories',{method:'POST',body:JSON.stringify({name:document.getElementById('factoryName').value.trim(),contact:document.getElementById('factoryContact').value.trim(),email:document.getElementById('factoryEmail').value.trim(),phone:document.getElementById('factoryPhone').value.trim(),governorate:document.getElementById('factoryGov').value,material_pref:document.getElementById('factoryMaterialPref').value})});
+    currentFactory=f;localStorage.setItem('tadweerhub_factory',JSON.stringify(f));closeModal('factoryModal');updateFactoryUI();switchDashTab('factory');
+    showToast(lang==='ar'?`تم تسجيل المصنع! أهلاً بك، ${f.name} 🏭`:`Factory registered! Welcome, ${f.name} 🏭`);
+  }catch(err){showToast(err.message,'error');}
+  finally{btn.disabled=false;btn.textContent=t('freg.submit');}
+});
+document.getElementById('factoryLoginLink').addEventListener('click',e=>{e.preventDefault();document.getElementById('factoryLoginSection').classList.toggle('hidden');});
+document.getElementById('factoryLoginBtn').addEventListener('click',async()=>{
+  const email=document.getElementById('factoryLoginEmail').value.trim();
+  if(!email)return showToast(t('toast.enterFacEmail'),'error');
+  try{const fs=await api('/api/factories');const f=fs.find(x=>x.email.toLowerCase()===email.toLowerCase());if(!f)return showToast(t('toast.notFound'),'error');currentFactory=f;localStorage.setItem('tadweerhub_factory',JSON.stringify(f));closeModal('factoryModal');updateFactoryUI();switchDashTab('factory');showToast(lang==='ar'?`أهلاً بعودتك، ${f.name}!`:`Welcome back, ${f.name}!`);}catch(err){showToast(err.message,'error');}
+});
+document.getElementById('factoryLogoutBtn').addEventListener('click',()=>{currentFactory=null;localStorage.removeItem('tadweerhub_factory');updateFactoryUI();showToast(t('toast.signedOut'));});
 
-  // ── Load Leaderboard ─────────────────────────────────────────
-  async function loadLeaderboard() {
-    const tbody = document.getElementById('leaderboardBody');
-    try {
-      const rows = await api('/api/leaderboard');
-      if (!rows.length) {
-        tbody.innerHTML = `<tr><td colspan="5" class="loading-text">No data yet.</td></tr>`;
-        return;
-      }
-      tbody.innerHTML = rows.map((r, i) => `
-        <tr>
-          <td><span class="rank rank-${i+1}">${i+1}</span></td>
-          <td>${escHtml(r.name)}</td>
-          <td>${r.dropoff_count}</td>
-          <td>${Number(r.total_bottles).toLocaleString()}</td>
-          <td><span class="points-badge">${r.points} pts</span></td>
-        </tr>`).join('');
-    } catch(e) {
-      tbody.innerHTML = `<tr><td colspan="5" class="loading-text">Could not load leaderboard.</td></tr>`;
-    }
-  }
+document.getElementById('dropoffForm').addEventListener('submit',async e=>{
+  e.preventDefault();if(!currentUser)return showToast(t('toast.signInFirst'),'error');
+  const btn=document.getElementById('submitDropoff');btn.disabled=true;btn.textContent=lang==='ar'?'جاري التسجيل...':'Logging...';
+  try{
+    const bottles=parseInt(document.getElementById('bottleCount').value);
+    await api('/api/dropoffs',{method:'POST',body:JSON.stringify({user_id:currentUser.id,bottles,location:document.getElementById('locationSelect').value,material_type:document.getElementById('materialType').value,notes:document.getElementById('dropoffNotes').value})});
+    currentUser.points=(currentUser.points||0)+bottles;localStorage.setItem('tadweerhub_user',JSON.stringify(currentUser));
+    updateConsumerUI();document.getElementById('dropoffForm').reset();showToast(t('toast.dropoff'));loadFeed();loadStats();loadLeaderboard();
+  }catch(err){showToast(err.message,'error');}
+  finally{btn.disabled=false;btn.textContent=t('dropoff.submit');}
+});
 
-  // ── Consumer Register ─────────────────────────────────────────
-  document.getElementById('registerForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = document.getElementById('registerBtn');
-    btn.disabled = true; btn.textContent = 'Creating...';
-    try {
-      const user = await api('/api/users', {
-        method: 'POST',
-        body: JSON.stringify({
-          name:  document.getElementById('regName').value.trim(),
-          email: document.getElementById('regEmail').value.trim(),
-          phone: document.getElementById('regPhone').value.trim(),
-        }),
-      });
-      currentUser = user;
-      localStorage.setItem('tadweerhub_user', JSON.stringify(user));
-      closeModal('registerModal');
-      updateConsumerUI();
-      showToast(`Welcome, ${user.name}! 🎉`);
-      loadLeaderboard();
-    } catch(err) { showToast(err.message, 'error'); }
-    finally { btn.disabled = false; btn.textContent = 'Create Account'; }
-  });
+document.getElementById('pickupForm').addEventListener('submit',async e=>{
+  e.preventDefault();if(!currentUser)return showToast(t('toast.signInFirst'),'error');
+  const btn=document.getElementById('submitPickup');btn.disabled=true;btn.textContent=lang==='ar'?'جاري الطلب...':'Requesting...';
+  try{
+    await api('/api/pickups',{method:'POST',body:JSON.stringify({user_id:currentUser.id,address:document.getElementById('pickupAddress').value.trim(),quantity:parseInt(document.getElementById('pickupQty').value),preferred_date:document.getElementById('pickupDate').value,material_type:document.getElementById('pickupMaterial').value})});
+    document.getElementById('pickupForm').reset();showToast(t('toast.pickup'));loadStats();
+  }catch(err){showToast(err.message,'error');}
+  finally{btn.disabled=false;btn.textContent=t('pickup.submit');}
+});
 
-  // ── Consumer Login ────────────────────────────────────────────
-  document.getElementById('loginLink').addEventListener('click', (e) => {
-    e.preventDefault();
-    document.getElementById('loginSection').classList.toggle('hidden');
-  });
+document.getElementById('supplyOrderForm').addEventListener('submit',async e=>{
+  e.preventDefault();if(!currentFactory)return showToast(t('toast.signInFirst'),'error');
+  const btn=document.getElementById('submitSupplyOrder');btn.disabled=true;btn.textContent=lang==='ar'?'جاري الإرسال...':'Submitting...';
+  try{
+    await api('/api/orders',{method:'POST',body:JSON.stringify({factory_id:currentFactory.id,material:document.getElementById('supplyMaterial').value,quantity_kg:parseInt(document.getElementById('supplyQty').value),address:document.getElementById('supplyAddress').value.trim(),required_by:document.getElementById('supplyDate').value,notes:document.getElementById('supplyNotes').value})});
+    document.getElementById('supplyOrderForm').reset();showToast(t('toast.order'));
+  }catch(err){showToast(err.message,'error');}
+  finally{btn.disabled=false;btn.textContent=t('order.submit');}
+});
 
-  document.getElementById('loginBtn').addEventListener('click', async () => {
-    const email = document.getElementById('loginEmail').value.trim();
-    if (!email) return showToast('Enter your email', 'error');
-    try {
-      const users = await api('/api/users');
-      const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
-      if (!user) return showToast('Email not found. Please register.', 'error');
-      currentUser = user;
-      localStorage.setItem('tadweerhub_user', JSON.stringify(user));
-      closeModal('registerModal');
-      updateConsumerUI();
-      showToast(`Welcome back, ${user.name}!`);
-    } catch(err) { showToast(err.message, 'error'); }
-  });
+// ── Modals ────────────────────────────────────────────────────────────────────
+function openModal(id){document.getElementById(id).classList.add('active');}
+function closeModal(id){document.getElementById(id).classList.remove('active');}
+document.getElementById('openRegister').addEventListener('click',e=>{e.preventDefault();openModal('registerModal');});
+document.getElementById('joinPromptLink').addEventListener('click',e=>{e.preventDefault();openModal('registerModal');});
+document.getElementById('joinPromptPickup').addEventListener('click',e=>{e.preventDefault();openModal('registerModal');});
+document.getElementById('closeModal').addEventListener('click',()=>closeModal('registerModal'));
+document.getElementById('registerModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal('registerModal');});
+document.getElementById('openFactoryRegister').addEventListener('click',e=>{e.preventDefault();openModal('factoryModal');});
+document.getElementById('joinFactoryPrompt').addEventListener('click',e=>{e.preventDefault();openModal('factoryModal');});
+document.getElementById('factoryHeroBtn').addEventListener('click',e=>{e.preventDefault();openModal('factoryModal');});
+document.getElementById('closeFactoryModal').addEventListener('click',()=>closeModal('factoryModal'));
+document.getElementById('factoryModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal('factoryModal');});
 
-  // ── Consumer Logout ───────────────────────────────────────────
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    currentUser = null;
-    localStorage.removeItem('tadweerhub_user');
-    updateConsumerUI();
-    showToast('Signed out.');
-  });
+// ── Hamburger ─────────────────────────────────────────────────────────────────
+const hbg=document.getElementById('hamburger'),nl=document.getElementById('navLinks');
+hbg.addEventListener('click',()=>{hbg.classList.toggle('open');nl.classList.toggle('open');});
+document.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',()=>{hbg.classList.remove('open');nl.classList.remove('open');}));
 
-  // ── Factory Register ──────────────────────────────────────────
-  document.getElementById('factoryRegisterForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = document.getElementById('factoryRegisterBtn');
-    btn.disabled = true; btn.textContent = 'Registering...';
-    try {
-      const factory = await api('/api/factories', {
-        method: 'POST',
-        body: JSON.stringify({
-          name:          document.getElementById('factoryName').value.trim(),
-          contact:       document.getElementById('factoryContact').value.trim(),
-          email:         document.getElementById('factoryEmail').value.trim(),
-          phone:         document.getElementById('factoryPhone').value.trim(),
-          governorate:   document.getElementById('factoryGov').value,
-          material_pref: document.getElementById('factoryMaterialPref').value,
-        }),
-      });
-      currentFactory = factory;
-      localStorage.setItem('tadweerhub_factory', JSON.stringify(factory));
-      closeModal('factoryModal');
-      updateFactoryUI();
-      switchDashTab('factory');
-      showToast(`Factory registered! Welcome, ${factory.name} 🏭`);
-    } catch(err) { showToast(err.message, 'error'); }
-    finally { btn.disabled = false; btn.textContent = 'Register Factory'; }
-  });
+// ── Scroll top ────────────────────────────────────────────────────────────────
+const sb=document.getElementById('scrollTop');
+window.addEventListener('scroll',()=>sb.classList.toggle('visible',window.scrollY>400));
+sb.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
-  // ── Factory Login ─────────────────────────────────────────────
-  document.getElementById('factoryLoginLink').addEventListener('click', (e) => {
-    e.preventDefault();
-    document.getElementById('factoryLoginSection').classList.toggle('hidden');
-  });
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
-  document.getElementById('factoryLoginBtn').addEventListener('click', async () => {
-    const email = document.getElementById('factoryLoginEmail').value.trim();
-    if (!email) return showToast('Enter your factory email', 'error');
-    try {
-      const factories = await api('/api/factories');
-      const factory = factories.find(f => f.email.toLowerCase() === email.toLowerCase());
-      if (!factory) return showToast('Email not found. Please register.', 'error');
-      currentFactory = factory;
-      localStorage.setItem('tadweerhub_factory', JSON.stringify(factory));
-      closeModal('factoryModal');
-      updateFactoryUI();
-      switchDashTab('factory');
-      showToast(`Welcome back, ${factory.name}!`);
-    } catch(err) { showToast(err.message, 'error'); }
-  });
-
-  // ── Factory Logout ────────────────────────────────────────────
-  document.getElementById('factoryLogoutBtn').addEventListener('click', () => {
-    currentFactory = null;
-    localStorage.removeItem('tadweerhub_factory');
-    updateFactoryUI();
-    showToast('Signed out.');
-  });
-
-  // ── Drop-off form ─────────────────────────────────────────────
-  document.getElementById('dropoffForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!currentUser) return showToast('Please sign in first', 'error');
-    const btn = document.getElementById('submitDropoff');
-    btn.disabled = true; btn.textContent = 'Logging...';
-    try {
-      await api('/api/dropoffs', {
-        method: 'POST',
-        body: JSON.stringify({
-          user_id:       currentUser.id,
-          bottles:       parseInt(document.getElementById('bottleCount').value),
-          location:      document.getElementById('locationSelect').value,
-          material_type: document.getElementById('materialType').value,
-          notes:         document.getElementById('dropoffNotes').value,
-        }),
-      });
-      currentUser.points = (currentUser.points || 0) + parseInt(document.getElementById('bottleCount').value);
-      localStorage.setItem('tadweerhub_user', JSON.stringify(currentUser));
-      updateConsumerUI();
-      document.getElementById('dropoffForm').reset();
-      showToast('Drop-off logged! ♻️');
-      loadFeed(); loadStats(); loadLeaderboard();
-    } catch(err) { showToast(err.message, 'error'); }
-    finally { btn.disabled = false; btn.textContent = 'Log Drop-off'; }
-  });
-
-  // ── Pickup form ───────────────────────────────────────────────
-  document.getElementById('pickupForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!currentUser) return showToast('Please sign in first', 'error');
-    const btn = document.getElementById('submitPickup');
-    btn.disabled = true; btn.textContent = 'Requesting...';
-    try {
-      await api('/api/pickups', {
-        method: 'POST',
-        body: JSON.stringify({
-          user_id:       currentUser.id,
-          address:       document.getElementById('pickupAddress').value.trim(),
-          quantity:      parseInt(document.getElementById('pickupQty').value),
-          preferred_date: document.getElementById('pickupDate').value,
-          material_type: document.getElementById('pickupMaterial').value,
-        }),
-      });
-      document.getElementById('pickupForm').reset();
-      showToast('Pickup requested! We\'ll confirm shortly. 🚛');
-      loadStats();
-    } catch(err) { showToast(err.message, 'error'); }
-    finally { btn.disabled = false; btn.textContent = 'Request Pickup'; }
-  });
-
-  // ── Supply order form ─────────────────────────────────────────
-  document.getElementById('supplyOrderForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!currentFactory) return showToast('Please sign in as a factory first', 'error');
-    const btn = document.getElementById('submitSupplyOrder');
-    btn.disabled = true; btn.textContent = 'Submitting...';
-    try {
-      await api('/api/orders', {
-        method: 'POST',
-        body: JSON.stringify({
-          factory_id:    currentFactory.id,
-          material:      document.getElementById('supplyMaterial').value,
-          quantity_kg:   parseInt(document.getElementById('supplyQty').value),
-          address:       document.getElementById('supplyAddress').value.trim(),
-          required_by:   document.getElementById('supplyDate').value,
-          notes:         document.getElementById('supplyNotes').value,
-        }),
-      });
-      document.getElementById('supplyOrderForm').reset();
-      showToast('Supply order submitted! Our team will be in touch. 🏭');
-    } catch(err) { showToast(err.message, 'error'); }
-    finally { btn.disabled = false; btn.textContent = 'Submit Supply Order'; }
-  });
-
-  // ── Modals ────────────────────────────────────────────────────
-  function openModal(id)  { document.getElementById(id).classList.add('active'); }
-  function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-  document.getElementById('openRegister').addEventListener('click',       (e) => { e.preventDefault(); openModal('registerModal'); });
-  document.getElementById('joinPromptLink').addEventListener('click',     (e) => { e.preventDefault(); openModal('registerModal'); });
-  document.getElementById('joinPromptPickup').addEventListener('click',   (e) => { e.preventDefault(); openModal('registerModal'); });
-  document.getElementById('closeModal').addEventListener('click',         ()  => closeModal('registerModal'));
-  document.getElementById('registerModal').addEventListener('click',      (e) => { if (e.target === e.currentTarget) closeModal('registerModal'); });
-
-  document.getElementById('openFactoryRegister').addEventListener('click', (e) => { e.preventDefault(); openModal('factoryModal'); });
-  document.getElementById('joinFactoryPrompt').addEventListener('click',   (e) => { e.preventDefault(); openModal('factoryModal'); });
-  document.getElementById('factoryHeroBtn').addEventListener('click',      (e) => { e.preventDefault(); openModal('factoryModal'); });
-  document.getElementById('closeFactoryModal').addEventListener('click',   ()  => closeModal('factoryModal'));
-  document.getElementById('factoryModal').addEventListener('click',        (e) => { if (e.target === e.currentTarget) closeModal('factoryModal'); });
-
-  // ── Hamburger ─────────────────────────────────────────────────
-  const hamburger = document.getElementById('hamburger');
-  const navLinks  = document.getElementById('navLinks');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    navLinks.classList.toggle('open');
-  });
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      navLinks.classList.remove('open');
-    });
-  });
-
-  // ── Scroll top ────────────────────────────────────────────────
-  const scrollBtn = document.getElementById('scrollTop');
-  window.addEventListener('scroll', () => scrollBtn.classList.toggle('visible', window.scrollY > 400));
-  scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-  // ── Utilities ─────────────────────────────────────────────────
-  function escHtml(str) {
-    return String(str)
-      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  function timeAgo(dateStr) {
-    const diff = Date.now() - new Date(dateStr).getTime();
-    const mins = Math.floor(diff / 60000);
-    if (mins < 1) return 'just now';
-    if (mins < 60) return `${mins}m ago`;
-    const hrs = Math.floor(mins / 60);
-    if (hrs < 24) return `${hrs}h ago`;
-    return `${Math.floor(hrs / 24)}d ago`;
-  }
-
-  // ── Init ──────────────────────────────────────────────────────
-  updateConsumerUI();
-  updateFactoryUI();
-  loadStats();
-  loadFeed();
-  loadLeaderboard();
-
-  setInterval(() => { loadStats(); loadFeed(); loadLeaderboard(); }, 30000);
+// ── Init ──────────────────────────────────────────────────────────────────────
+applyLang();
+updateConsumerUI();
+updateFactoryUI();
+loadStats();
+loadFeed();
+loadLeaderboard();
+setInterval(()=>{loadStats();loadFeed();loadLeaderboard();},30000);
 </script>
 </body>
 </html>
